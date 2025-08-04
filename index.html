@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Definitive Interactive Historical Timelines</title>
+<style>
+  :root {
+    --start-year: -2000;
+    --end-year: 2000;
+    --total-years: 4000; /* end-year - start-year */
+    --timeline-base-width: 10000px;
+    
+    /* Timeline Colors */
+    --color-composers: #FDD835; /* Yellow */
+    --color-scientists: #BA68C8; /* Purple */
+    --color-rulers: #E57373; /* Red */
+    --color-philosophers: #8D6E63; /* Brown */
+    --color-writers: #64B5F6; /* Blue */
+  }
+
+  body {
+    background-color: #121212;
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+    touch-action: pan-y;
+  }
+
+  .timeline-container {
+    width: 100%;
+    height: 100vh;
+    overflow-x: scroll;
+    box-sizing: border-box;
+    cursor: grab;
+    touch-action: pan-y pinch-zoom;
+  }
+  .timeline-container:active {
+      cursor: grabbing;
+  }
+
+  .timeline-container::-webkit-scrollbar { height: 12px; }
+  .timeline-container::-webkit-scrollbar-track { background: #282828; }
+  .timeline-container::-webkit-scrollbar-thumb { background-color: #888; border-radius: 20px; border: 3px solid #282828; }
+
+  .timeline-wrapper {
+    width: var(--timeline-base-width);
+    height: 100%;
+    position: relative;
+    padding: 0 50px;
+  }
+
+  .timeline-line {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+  }
+
+  /* Vertical Positioning of each timeline */
+  .timeline-line.composers   { top: 20%; background-color: var(--color-composers); }
+  .timeline-line.scientists  { top: 35%; background-color: var(--color-scientists); }
+  .timeline-line.rulers      { top: 50%; background-color: var(--color-rulers); }
+  .timeline-line.philosophers{ top: 65%; background-color: var(--color-philosophers); }
+  .timeline-line.writers     { top: 80%; background-color: var(--color-writers); }
+
+
+  .timeline-year {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .timeline-year::before {
+    content: '';
+    width: 2px;
+    height: 100%;
+    background-color: rgba(85, 85, 85, 0.5);
+    position: absolute;
+    top: 0;
+    left: 50%;
+    z-index: -1;
+  }
+  
+  .timeline-year-label {
+    position: sticky;
+    top: 5%;
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #555;
+    background-color: #121212;
+    padding: 0 10px;
+    z-index: 15;
+  }
+
+  .timeline-item {
+    position: absolute;
+    height: 0;
+    display: flex;
+    align-items: center;
+    z-index: 10;
+  }
+
+  /* Position items on their respective timelines */
+  .timeline-item.composer   { top: 20%; }
+  .timeline-item.scientist  { top: 35%; }
+  .timeline-item.ruler      { top: 50%; }
+  .timeline-item.philosopher{ top: 65%; }
+  .timeline-item.writer     { top: 80%; }
+  
+  .permanent-name {
+    position: absolute;
+    bottom: 12px;
+    left: 0;
+    transform: translateX(-50%);
+    font-size: 0.8em;
+    font-weight: bold;
+    color: #ccc;
+    white-space: nowrap;
+    background: rgba(18, 18, 18, 0.7);
+    padding: 2px 6px;
+    border-radius: 4px;
+    z-index: 11;
+  }
+
+  .marker {
+    width: 16px;
+    height: 16px;
+    border: 3px solid #121212;
+    border-radius: 50%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translate(-50%, -50%);
+    z-index: 12;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .composer .marker    { background-color: var(--color-composers); }
+  .scientist .marker   { background-color: var(--color-scientists); }
+  .ruler .marker       { background-color: var(--color-rulers); }
+  .philosopher .marker { background-color: var(--color-philosophers); }
+  .writer .marker      { background-color: var(--color-writers); }
+  
+  .lifespan, .event-duration {
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translateY(-50%);
+    height: 6px;
+    background-color: transparent;
+    z-index: 11;
+    transition: all 0.3s ease;
+    border-radius: 3px;
+  }
+  .event-duration {
+      height: 12px;
+      cursor: pointer;
+  }
+
+  .timeline-item.composer:hover .lifespan    { background-color: var(--color-composers); height: 8px; }
+  .timeline-item.scientist:hover .lifespan  { background-color: var(--color-scientists); height: 8px; }
+  .timeline-item.ruler:hover .lifespan       { background-color: var(--color-rulers); height: 8px; }
+  .timeline-item.philosopher:hover .lifespan { background-color: var(--color-philosophers); height: 8px; }
+  .timeline-item.writer:hover .lifespan      { background-color: var(--color-writers); height: 8px; }
+
+  .timeline-content {
+    background-color: #282828;
+    padding: 15px;
+    border-radius: 8px;
+    position: absolute;
+    left: 0;
+    transform: translateX(-50%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
+    width: 240px;
+    z-index: 20;
+  }
+  .timeline-item:hover .timeline-content {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  /* Pop-up positioning */
+  .timeline-item .timeline-content {
+      bottom: 30px;
+  }
+  
+  .timeline-content img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    border: 3px solid;
+    background-color: #404040;
+    object-fit: cover;
+    float: left;
+    margin-right: 15px;
+  }
+  .composer .timeline-content img    { border-color: var(--color-composers); }
+  .scientist .timeline-content img   { border-color: var(--color-scientists); }
+  .ruler .timeline-content img       { border-color: var(--color-rulers); }
+  .philosopher .timeline-content img { border-color: var(--color-philosophers); }
+  .writer .timeline-content img      { border-color: var(--color-writers); }
+  
+  .links { display: flex; justify-content: flex-start; gap: 10px; align-items: center; margin-top: 10px; clear: both; }
+  .link { display: inline-block; padding: 6px 12px; color: #ffffff; text-decoration: none; border-radius: 50px; font-weight: bold; transition: background-color 0.3s ease; font-size: 0.8em; }
+  
+  .spotify-link { background-color: #1DB954; }
+  .spotify-link:hover { background-color: #1ed760; }
+  
+  .wiki-link { background-color: #636466; }
+  .wiki-link:hover { background-color: #7c7d7f; }
+
+  .timeline-content h3 { margin: 0 0 5px 0; font-size: 1.1em; line-height: 1.2; }
+  .timeline-content p { margin: 0; font-size: 0.9em; color: #ccc; }
+  
+  /* --- Zoom Slider Styles --- */
+  .zoom-slider-container {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    background-color: rgba(40, 40, 40, 0.8);
+    padding: 10px 20px;
+    border-radius: 10px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #ccc;
+    font-size: 0.9em;
+  }
+
+  input[type="range"] {
+    -webkit-appearance: none;
+    flex-grow: 1;
+    background: transparent;
+  }
+  input[type="range"]:focus {
+    outline: none;
+  }
+  input[type="range"]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 6px;
+    cursor: pointer;
+    background: #555;
+    border-radius: 3px;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: 2px solid #333;
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    background: #ccc;
+    cursor: pointer;
+    margin-top: -6px;
+  }
+  input[type="range"]::-moz-range-track {
+    width: 100%;
+    height: 6px;
+    cursor: pointer;
+    background: #555;
+    border-radius: 3px;
+  }
+  input[type="range"]::-moz-range-thumb {
+    border: 2px solid #333;
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    background: #ccc;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<div class="timeline-container">
+  <div class="timeline-wrapper">
+    <!-- Thematic Lines -->
+    <div class="timeline-line composers"></div>
+    <div class="timeline-line scientists"></div>
+    <div class="timeline-line rulers"></div>
+    <div class="timeline-line philosophers"></div>
+    <div class="timeline-line writers"></div>
+    
+    <!-- TIMELINE DATA -->
+
+    <!-- === COMPOSERS (YELLOW) === -->
+    <div class="timeline-item composer" style="left: calc((-2300 - -2000) / var(--total-years) * 100%);">
+        <div class="permanent-name">Enheduanna</div><div class="lifespan" style="width: calc((-2225 - -2300) / var(--total-years) * 100%);"></div><div class="marker"></div>
+        <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Disk_of_Enheduanna_%28detail_-_showing_Enheduanna_-_the_figure_with_the_flounced_dress%29.jpg/220px-Disk_of_Enheduanna_%28detail_-_showing_Enheduanna_-_the_figure_with_the_flounced_dress%29.jpg" alt="Enheduanna"><h3>Enheduanna</h3><p>c. 2285–2250 BC</p><div class="links"><a href="https://en.wikipedia.org/wiki/Enheduanna" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item composer" style="left: calc((100 - -2000) / var(--total-years) * 100%);">
+      <div class="permanent-name">Seikilos Epitaph</div><div class="lifespan" style="width: calc(1 / var(--total-years) * 100%);"></div><div class="marker"></div>
+      <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Seikilos_epitaph_from_Aidin.jpg/220px-Seikilos_epitaph_from_Aidin.jpg" alt="Seikilos Epitaph"><h3>Seikilos Epitaph</h3><p>c. 1st Century AD</p><div class="links"><a href="https://open.spotify.com/artist/7d3jP9n76B12n03iWc0VUn" target="_blank" class="link spotify-link">Listen</a><a href="https://en.wikipedia.org/wiki/Seikilos_epitaph" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item composer" style="left: calc((1098 - -2000) / var(--total-years) * 100%);">
+      <div class="permanent-name">Hildegard v. Bingen</div><div class="lifespan" style="width: calc((1179 - 1098) / var(--total-years) * 100%);"></div><div class="marker"></div>
+      <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Hildegard_von_Bingen.jpg/220px-Hildegard_von_Bingen.jpg" alt="Hildegard von Bingen"><h3>Hildegard von Bingen</h3><p>1098-1179</p><div class="links"><a href="https://open.spotify.com/artist/2xt1t3lf2BfkGVl1vQPVV7" target="_blank" class="link spotify-link">Spotify</a><a href="https://en.wikipedia.org/wiki/Hildegard_of_Bingen" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item composer" style="left: calc((1300 - -2000) / var(--total-years) * 100%);">
+      <div class="permanent-name">G. de Machaut</div><div class="lifespan" style="width: calc((1377 - 1300) / var(--total-years) * 100%);"></div><div class="marker"></div>
+      <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Machaut_on_a_red_background.jpg/220px-Machaut_on_a_red_background.jpg" alt="Guillaume de Machaut"><h3>Guillaume de Machaut</h3><p>c. 1300–1377</p><div class="links"><a href="https://open.spotify.com/artist/262IPs3Guuh22T4o123gH6" target="_blank" class="link spotify-link">Spotify</a><a href="https://en.wikipedia.org/wiki/Guillaume_de_Machaut" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item composer" style="left: calc((1390 - -2000) / var(--total-years) * 100%);">
+      <div class="permanent-name">John Dunstable</div><div class="lifespan" style="width: calc((1453 - 1390) / var(--total-years) * 100%);"></div><div class="marker"></div>
+      <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Dunstaple.jpg/220px-Dunstaple.jpg" alt="John Dunstable"><h3>John Dunstable</h3><p>c. 1390-1453</p><div class="links"><a href="https://open.spotify.com/artist/3DL7TTcfjDA7SceS7g4aP7" target="_blank" class="link spotify-link">Spotify</a><a href="https://en.wikipedia.org/wiki/John_Dunstable" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item composer" style="left: calc((1450 - -2000) / var(--total-years) * 100%);">
+      <div class="permanent-name">Josquin des Prez</div><div class="lifespan" style="width: calc((1521 - 1450) / var(--total-years) * 100%);"></div><div class="marker"></div>
+      <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Josquin_des_Prez_by_an_unknown_16th_century_artist.jpg/220px-Josquin_des_Prez_by_an_unknown_16th_century_artist.jpg" alt="Josquin des Prez"><h3>Josquin des Prez</h3><p>c. 1450-1521</p><div class="links"><a href="https://open.spotify.com/artist/31f23hmZawdqgp0sECAzE8" target="_blank" class="link spotify-link">Spotify</a><a href="https://en.wikipedia.org/wiki/Josquin_des_Prez" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item composer" style="left: calc((1567 - -2000) / var(--total-years) * 100%);">
+      <div class="permanent-name">Monteverdi</div><div class="lifespan" style="width: calc((1643 - 1567) / var(--total-years) * 100%);"></div><div class="marker"></div>
+      <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Claudio_Monteverdi.jpg/220px-Claudio_Monteverdi.jpg" alt="Claudio Monteverdi"><h3>Claudio Monteverdi</h3><p>1567-1643</p><div class="links"><a href="https://open.spotify.com/artist/5iAhVgzxSvgMbyi7BDftQe" target="_blank" class="link spotify-link">Spotify</a><a href="https://en.wikipedia.org/wiki/Claudio_Monteverdi" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item composer" style="left: calc((1678 - -2000) / var(--total-years) * 100%);">
+      <div class="permanent-name">Vivaldi</div><div class="lifespan" style="width: calc((1741 - 1678) / var(--total-years) * 100%);"></div><div class="marker"></div>
+      <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/g/g2/Vivaldi.jpg/220px-Vivaldi.jpg" alt="Antonio Vivaldi"><h3>Antonio Vivaldi</h3><p>1678-1741</p><div class="links"><a href="https://open.spotify.com/artist/2QOIawHpSlOwXDvSqQ9YJR" target="_blank" class="link spotify-link">Spotify</a><a href="https://en.wikipedia.org/wiki/Antonio_Vivaldi" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item composer" style="left: calc((1685 - -2000) / var(--total-years) * 100%);">
+      <div class="permanent-name">Bach</div><div class="lifespan" style="width: calc((1750 - 1685) / var(--total-years) * 100%);"></div><div class="marker"></div>
+      <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Johann_Sebastian_Bach.jpg/220px-Johann_Sebastian_Bach.jpg" alt="J.S. Bach"><h3>J.S. Bach</h3><p>1685-1750</p><div class="links"><a href="https://open.spotify.com/artist/5aIqB5nVVvmFsvSdQpccC0" target="_blank" class="link spotify-link">Spotify</a><a href="https://en.wikipedia.org/wiki/Johann_Sebastian_Bach" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item composer" style="left: calc((1685.2 - -2000) / var(--total-years) * 100%);">
+      <div class="permanent-name">Handel</div><div class="lifespan" style="width: calc((1759 - 1685) / var(--total-years) * 100%);"></div><div class="marker"></div>
+      <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/George_Frideric_Handel_by_Balthasar_Denner.jpg/220px-George_Frideric_Handel_by_Balthasar_Denner.jpg" alt="G. F. Handel"><h3>G. F. Handel</h3><p>1685-1759</p><div class="links"><a href="https://open.spotify.com/artist/1QL7yTHrdUjEiAuLSssY2Z" target="_blank" class="link spotify-link">Spotify</a><a href="https://en.wikipedia.org/wiki/George_Frideric_Handel" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item composer" style="left: calc((1732 - -2000) / var(--total-years) * 100%);">
+      <div class="permanent-name">Haydn</div><div class="lifespan" style="width: calc((1809 - 1732) / var(--total-years) * 100%);"></div><div class="marker"></div>
+      <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Joseph_Haydn.jpg/220px-Joseph_Haydn.jpg" alt="Joseph Haydn"><h3>Joseph Haydn</h3><p>1732-1809</p><div class="links"><a href="https://open.spotify.com/artist/656RXuyw7CE00lOP7zAskb" target="_blank" class="link spotify-link">Spotify</a><a href="https://en.wikipedia.org/wiki/Joseph_Haydn" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item composer" style="left: calc((1756 - -2000) / var(--total-years) * 100%);">
+      <div class="permanent-name">Mozart</div><div class="lifespan" style="width: calc((1791 - 1756) / var(--total-years) * 100%);"></div><div class="marker"></div>
+      <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Wolfgang-amadeus-mozart_1.jpg/220px-Wolfgang-amadeus-mozart_1.jpg" alt="W.A. Mozart"><h3>W.A. Mozart</h3><p>1756-1791</p><div class="links"><a href="https://open.spotify.com/artist/4NJhFmfw43RLBLjQvxDu1a" target="_blank" class="link spotify-link">Spotify</a><a href="https://en.wikipedia.org/wiki/Wolfgang_Amadeus_Mozart" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item composer" style="left: calc((1770 - -2000) / var(--total-years) * 100%);">
+      <div class="permanent-name">Beethoven</div><div class="lifespan" style="width: calc((1827 - 1770) / var(--total-years) * 100%);"></div><div class="marker"></div>
+      <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Beethoven.jpg/220px-Beethoven.jpg" alt="Beethoven"><h3>Ludwig van Beethoven</h3><p>1770-1827</p><div class="links"><a href="https://open.spotify.com/artist/2wOqMjp9TyABs2BTsb2A6X" target="_blank" class="link spotify-link">Spotify</a><a href="https://en.wikipedia.org/wiki/Ludwig_van_Beethoven" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item composer" style="left: calc((1810 - -2000) / var(--total-years) * 100%);">
+      <div class="permanent-name">Chopin</div><div class="lifespan" style="width: calc((1849 - 1810) / var(--total-years) * 100%);"></div><div class="marker"></div>
+      <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Frederic_Chopin_photo.jpeg/220px-Frederic_Chopin_photo.jpeg" alt="Frédéric Chopin"><h3>Frédéric Chopin</h3><p>1810-1849</p><div class="links"><a href="https://open.spotify.com/artist/7y97mc3bZRFXzT2szRM4L4" target="_blank" class="link spotify-link">Spotify</a><a href="https://en.wikipedia.org/wiki/Fr%C3%A9d%C3%A9ric_Chopin" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item composer" style="left: calc((1811 - -2000) / var(--total-years) * 100%);">
+      <div class="permanent-name">Liszt</div><div class="lifespan" style="width: calc((1886 - 1811) / var(--total-years) * 100%);"></div><div class="marker"></div>
+      <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Franz_Liszt_in_1858_by_Franz_Hanfstaengl.jpg/220px-Franz_Liszt_in_1858_by_Franz_Hanfstaengl.jpg" alt="Franz Liszt"><h3>Franz Liszt</h3><p>1811-1886</p><div class="links"><a href="https://open.spotify.com/artist/1385hLNbrvdFBwfQfM529r" target="_blank" class="link spotify-link">Spotify</a><a href="https://en.wikipedia.org/wiki/Franz_Liszt" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item composer" style="left: calc((1833 - -2000) / var(--total-years) * 100%);">
+      <div class="permanent-name">Brahms</div><div class="lifespan" style="width: calc((1897 - 1833) / var(--total-years) * 100%);"></div><div class="marker"></div>
+      <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/JohannesBrahms.jpg/220px-JohannesBrahms.jpg" alt="Johannes Brahms"><h3>Johannes Brahms</h3><p>1833-1897</p><div class="links"><a href="https://open.spotify.com/artist/5wTAi7QkpP6eBv8kFFssIq" target="_blank" class="link spotify-link">Spotify</a><a href="https://en.wikipedia.org/wiki/Johannes_Brahms" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item composer" style="left: calc((1840 - -2000) / var(--total-years) * 100%);">
+      <div class="permanent-name">Tchaikovsky</div><div class="lifespan" style="width: calc((1893 - 1840) / var(--total-years) * 100%);"></div><div class="marker"></div>
+      <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Pyotr_Ilyich_Tchaikovsky_by_Nikolai_Kuznetsov_1893.jpg/220px-Pyotr_Ilyich_Tchaikovsky_by_Nikolai_Kuznetsov_1893.jpg" alt="Tchaikovsky"><h3>Pyotr Tchaikovsky</h3><p>1840-1893</p><div class="links"><a href="https://open.spotify.com/artist/3MKCzCnpzw3TjUYs2v7vDA" target="_blank" class="link spotify-link">Spotify</a><a href="https://en.wikipedia.org/wiki/Pyotr_Ilyich_Tchaikovsky" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item composer" style="left: calc((1862 - -2000) / var(--total-years) * 100%);">
+      <div class="permanent-name">Debussy</div><div class="lifespan" style="width: calc((1918 - 1862) / var(--total-years) * 100%);"></div><div class="marker"></div>
+      <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Claude_Debussy_ca_1908.jpg/220px-Claude_Debussy_ca_1908.jpg" alt="Claude Debussy"><h3>Claude Debussy</h3><p>1862-1918</p><div class="links"><a href="https://open.spotify.com/artist/1Uff91EOsvd99rtAupatMP" target="_blank" class="link spotify-link">Spotify</a><a href="https://en.wikipedia.org/wiki/Claude_Debussy" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item composer" style="left: calc((1865 - -2000) / var(--total-years) * 100%);">
+      <div class="permanent-name">Sibelius</div><div class="lifespan" style="width: calc((1957 - 1865) / var(--total-years) * 100%);"></div><div class="marker"></div>
+      <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Jean_Sibelius_by_Daniel_Nyblin_in_1890.jpg/220px-Jean_Sibelius_by_Daniel_Nyblin_in_1890.jpg" alt="Jean Sibelius"><h3>Jean Sibelius</h3><p>1865-1957</p><div class="links"><a href="https://open.spotify.com/artist/7jzR5qj8vflt5hizjcae5P" target="_blank" class="link spotify-link">Spotify</a><a href="https://en.wikipedia.org/wiki/Jean_Sibelius" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item composer" style="left: calc((1873 - -2000) / var(--total-years) * 100%);">
+      <div class="permanent-name">Rachmaninoff</div><div class="lifespan" style="width: calc((1943 - 1873) / var(--total-years) * 100%);"></div><div class="marker"></div>
+      <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Sergei_Rachmaninoff_in_1910s.jpg/220px-Sergei_Rachmaninoff_in_1910s.jpg" alt="Sergei Rachmaninoff"><h3>Sergei Rachmaninoff</h3><p>1873-1943</p><div class="links"><a href="https://open.spotify.com/artist/0Kekt6CKSo0m5mivKcoH51" target="_blank" class="link spotify-link">Spotify</a><a href="https://en.wikipedia.org/wiki/Sergei_Rachmaninoff" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item composer" style="left: calc((1882 - -2000) / var(--total-years) * 100%);">
+      <div class="permanent-name">Stravinsky</div><div class="lifespan" style="width: calc((1971 - 1882) / var(--total-years) * 100%);"></div><div class="marker"></div>
+      <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Igor_Stravinsky_LOC_32392u.jpg/220px-Igor_Stravinsky_LOC_32392u.jpg" alt="Igor Stravinsky"><h3>Igor Stravinsky</h3><p>1882-1971</p><div class="links"><a href="https://open.spotify.com/artist/7oVMFD53T7yy6eF5hNCg7B" target="_blank" class="link spotify-link">Spotify</a><a href="https://en.wikipedia.org/wiki/Igor_Stravinsky" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item composer" style="left: calc((1912 - -2000) / var(--total-years) * 100%);">
+      <div class="permanent-name">John Cage</div><div class="lifespan" style="width: calc((1992 - 1912) / var(--total-years) * 100%);"></div><div class="marker"></div>
+      <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/John_Cage_in_1988.jpg/220px-John_Cage_in_1988.jpg" alt="John Cage"><h3>John Cage</h3><p>1912-1992</p><div class="links"><a href="https://open.spotify.com/artist/1Z3fF5l6CMVp2f7iTPOell" target="_blank" class="link spotify-link">Spotify</a><a href="https://en.wikipedia.org/wiki/John_Cage" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+
+
+    <!-- === SCIENTISTS & THINKERS (PURPLE) === -->
+    <div class="timeline-item scientist" style="left: calc((-624 - -2000) / var(--total-years) * 100%);">
+        <div class="permanent-name">Thales</div><div class="lifespan" style="width: calc((-546 - -624) / var(--total-years) * 100%);"></div><div class="marker"></div>
+        <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Thales_of_Miletus.jpg/220px-Thales_of_Miletus.jpg" alt="Thales of Miletus"><h3>Thales of Miletus</h3><p>c. 624–c. 546 BC</p><div class="links"><a href="https://en.wikipedia.org/wiki/Thales_of_Miletus" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item scientist" style="left: calc((-570 - -2000) / var(--total-years) * 100%);">
+        <div class="permanent-name">Pythagoras</div><div class="lifespan" style="width: calc((-495 - -570) / var(--total-years) * 100%);"></div><div class="marker"></div>
+        <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Kapitolinischer_Pythagoras_adjusted.jpg/220px-Kapitolinischer_Pythagoras_adjusted.jpg" alt="Pythagoras"><h3>Pythagoras</h3><p>c. 570–c. 495 BC</p><div class="links"><a href="https://en.wikipedia.org/wiki/Pythagoras" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item scientist" style="left: calc((-325 - -2000) / var(--total-years) * 100%);">
+        <div class="permanent-name">Euclid</div><div class="lifespan" style="width: calc((-265 - -325) / var(--total-years) * 100%);"></div><div class="marker"></div>
+        <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Euclid_in_The_School_of_Athens.jpg/220px-Euclid_in_The_School_of_Athens.jpg" alt="Euclid"><h3>Euclid</h3><p>fl. 300 BC</p><div class="links"><a href="https://en.wikipedia.org/wiki/Euclid" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item scientist" style="left: calc((-287 - -2000) / var(--total-years) * 100%);">
+        <div class="permanent-name">Archimedes</div><div class="lifespan" style="width: calc((-212 - -287) / var(--total-years) * 100%);"></div><div class="marker"></div>
+        <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Domenico-Fetti_Archimedes_1620.jpg/220px-Domenico-Fetti_Archimedes_1620.jpg" alt="Archimedes"><h3>Archimedes</h3><p>c. 287–c. 212 BC</p><div class="links"><a href="https://en.wikipedia.org/wiki/Archimedes" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item scientist" style="left: calc((1452 - -2000) / var(--total-years) * 100%);">
+      <div class="permanent-name">da Vinci</div><div class="lifespan" style="width: calc((1519 - 1452) / var(--total-years) * 100%);"></div><div class="marker"></div>
+      <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Francesco_Melzi_-_Portrait_of_Leonardo_-_WGA15018.jpg/220px-Francesco_Melzi_-_Portrait_of_Leonardo_-_WGA15018.jpg" alt="Leonardo da Vinci"><h3>Leonardo da Vinci</h3><p>1452–1519</p><div class="links"><a href="https://en.wikipedia.org/wiki/Leonardo_da_Vinci" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item scientist" style="left: calc((1564 - -2000) / var(--total-years) * 100%);">
+      <div class="permanent-name">Galileo</div><div class="lifespan" style="width: calc((1642 - 1564) / var(--total-years) * 100%);"></div><div class="marker"></div>
+      <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Justus_Sustermans_-_Portrait_of_Galileo_Galilei%2C_1636.jpg/220px-Justus_Sustermans_-_Portrait_of_Galileo_Galilei%2C_1636.jpg" alt="Galileo Galilei"><h3>Galileo Galilei</h3><p>1564–1642</p><div class="links"><a href="https://en.wikipedia.org/wiki/Galileo_Galilei" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item scientist" style="left: calc((1643 - -2000) / var(--total-years) * 100%);">
+      <div class="permanent-name">Newton</div><div class="lifespan" style="width: calc((1727 - 1643) / var(--total-years) * 100%);"></div><div class="marker"></div>
+      <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/GodfreyKneller-IsaacNewton-1689.jpg/220px-GodfreyKneller-IsaacNewton-1689.jpg" alt="Isaac Newton"><h3>Isaac Newton</h3><p>1643–1727</p><div class="links"><a href="https://en.wikipedia.org/wiki/Isaac_Newton" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item scientist" style="left: calc((1809 - -2000) / var(--total-years) * 100%);">
+      <div class="permanent-name">Darwin</div><div class="lifespan" style="width: calc((1882 - 1809) / var(--total-years) * 100%);"></div><div class="marker"></div>
+      <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Charles_Darwin_seated_by_Elliott_%26_Fry_1870s.jpg/220px-Charles_Darwin_seated_by_Elliott_%26_Fry_1870s.jpg" alt="Charles Darwin"><h3>Charles Darwin</h3><p>1809–1882</p><div class="links"><a href="https://en.wikipedia.org/wiki/Charles_Darwin" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item scientist" style="left: calc((1879 - -2000) / var(--total-years) * 100%);">
+      <div class="permanent-name">Einstein</div><div class="lifespan" style="width: calc((1955 - 1879) / var(--total-years) * 100%);"></div><div class="marker"></div>
+      <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Albert_Einstein_Head.jpg/220px-Albert_Einstein_Head.jpg" alt="Albert Einstein"><h3>Albert Einstein</h3><p>1879–1955</p><div class="links"><a href="https://en.wikipedia.org/wiki/Albert_Einstein" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+
+
+    <!-- === RULERS (RED) === -->
+    <div class="timeline-item ruler" style="left: calc((-1353 - -2000) / var(--total-years) * 100%);">
+        <div class="permanent-name">Akhenaten</div><div class="lifespan" style="width: calc((-1336 - -1353) / var(--total-years) * 100%);"></div><div class="marker"></div>
+        <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Akhenaten_and_Neferneferuaten_NE_1241_Staatliches_Museum_%C3%84gyptischer_Kunst_M%C3%BCnchen-2.jpg/220px-Akhenaten_and_Neferneferuaten_NE_1241_Staatliches_Museum_%C3%84gyptischer_Kunst_M%C3%BCnchen-2.jpg" alt="Akhenaten"><h3>Akhenaten</h3><p>r. c. 1353–1336 BC</p><div class="links"><a href="https://en.wikipedia.org/wiki/Akhenaten" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item ruler" style="left: calc((-559 - -2000) / var(--total-years) * 100%);">
+        <div class="permanent-name">Cyrus the Great</div><div class="lifespan" style="width: calc((-530 - -559) / var(--total-years) * 100%);"></div><div class="marker"></div>
+        <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Cyrus_the_Great_in_Pasargadae.jpg/220px-Cyrus_the_Great_in_Pasargadae.jpg" alt="Cyrus the Great"><h3>Cyrus the Great</h3><p>r. c. 559–530 BC</p><div class="links"><a href="https://en.wikipedia.org/wiki/Cyrus_the_Great" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item ruler" style="left: calc((-336 - -2000) / var(--total-years) * 100%);">
+        <div class="permanent-name">Alexander the Great</div><div class="lifespan" style="width: calc((-323 - -336) / var(--total-years) * 100%);"></div><div class="marker"></div>
+        <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Alexander_the_Great_mosaic.jpg/220px-Alexander_the_Great_mosaic.jpg" alt="Alexander the Great"><h3>Alexander the Great</h3><p>r. 336–323 BC</p><div class="links"><a href="https://en.wikipedia.org/wiki/Alexander_the_Great" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item ruler" style="left: calc((-49 - -2000) / var(--total-years) * 100%);">
+        <div class="permanent-name">Julius Caesar</div><div class="lifespan" style="width: calc((-44 - -49) / var(--total-years) * 100%);"></div><div class="marker"></div>
+        <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Green_Caesar.jpg/220px-Green_Caesar.jpg" alt="Julius Caesar"><h3>Julius Caesar</h3><p>Dictator 49–44 BC</p><div class="links"><a href="https://en.wikipedia.org/wiki/Julius_Caesar" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+     <div class="timeline-item ruler" style="left: calc((-27 - -2000) / var(--total-years) * 100%);">
+        <div class="permanent-name">Augustus</div><div class="lifespan" style="width: calc((14 - -27) / var(--total-years) * 100%);"></div><div class="marker"></div>
+        <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Augustus_of_Prima_Porta-Vatican_Museum-colosseum-2.jpg/220px-Augustus_of_Prima_Porta-Vatican_Museum-colosseum-2.jpg" alt="Augustus"><h3>Augustus</h3><p>r. 27 BC – 14 AD</p><div class="links"><a href="https://en.wikipedia.org/wiki/Augustus" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item ruler" style="left: calc((748 - -2000) / var(--total-years) * 100%);">
+        <div class="permanent-name">Charlemagne</div><div class="lifespan" style="width: calc((814 - 748) / var(--total-years) * 100%);"></div><div class="marker"></div>
+        <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Duerer-charlemagne-out.jpg/220px-Duerer-charlemagne-out.jpg" alt="Charlemagne"><h3>Charlemagne</h3><p>748–814</p><div class="links"><a href="https://en.wikipedia.org/wiki/Charlemagne" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item ruler" style="left: calc((1162 - -2000) / var(--total-years) * 100%);">
+        <div class="permanent-name">Genghis Khan</div><div class="lifespan" style="width: calc((1227 - 1162) / var(--total-years) * 100%);"></div><div class="marker"></div>
+        <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/YuanEmperorAlbumGenghisPortrait.jpg/220px-YuanEmperorAlbumGenghisPortrait.jpg" alt="Genghis Khan"><h3>Genghis Khan</h3><p>c. 1162–1227</p><div class="links"><a href="https://en.wikipedia.org/wiki/Genghis_Khan" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item ruler" style="left: calc((1533 - -2000) / var(--total-years) * 100%);">
+        <div class="permanent-name">Elizabeth I</div><div class="lifespan" style="width: calc((1603 - 1533) / var(--total-years) * 100%);"></div><div class="marker"></div>
+        <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Darnley_stage_3.jpg/220px-Darnley_stage_3.jpg" alt="Elizabeth I"><h3>Elizabeth I</h3><p>1533–1603</p><div class="links"><a href="https://en.wikipedia.org/wiki/Elizabeth_I" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item ruler" style="left: calc((1819 - -2000) / var(--total-years) * 100%);">
+        <div class="permanent-name">Queen Victoria</div><div class="lifespan" style="width: calc((1901 - 1819) / var(--total-years) * 100%);"></div><div class="marker"></div>
+        <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Queen_Victoria_by_Bassano.jpg/220px-Queen_Victoria_by_Bassano.jpg" alt="Queen Victoria"><h3>Queen Victoria</h3><p>1819–1901</p><div class="links"><a href="https://en.wikipedia.org/wiki/Queen_Victoria" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+
+    <!-- === PHILOSOPHERS (BROWN) === -->
+    <div class="timeline-item philosopher" style="left: calc((-551 - -2000) / var(--total-years) * 100%);">
+        <div class="permanent-name">Confucius</div><div class="lifespan" style="width: calc((-479 - -551) / var(--total-years) * 100%);"></div><div class="marker"></div>
+        <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Konfuzius-1770.jpg/220px-Konfuzius-1770.jpg" alt="Confucius"><h3>Confucius</h3><p>551–479 BC</p><div class="links"><a href="https://en.wikipedia.org/wiki/Confucius" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item philosopher" style="left: calc((-469 - -2000) / var(--total-years) * 100%);">
+        <div class="permanent-name">Socrates</div><div class="lifespan" style="width: calc((-399 - -469) / var(--total-years) * 100%);"></div><div class="marker"></div>
+        <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Socrates_Louvre.jpg/220px-Socrates_Louvre.jpg" alt="Socrates"><h3>Socrates</h3><p>c. 469–399 BC</p><div class="links"><a href="https://en.wikipedia.org/wiki/Socrates" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item philosopher" style="left: calc((-428 - -2000) / var(--total-years) * 100%);">
+        <div class="permanent-name">Plato</div><div class="lifespan" style="width: calc((-348 - -428) / var(--total-years) * 100%);"></div><div class="marker"></div>
+        <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Plato_Silanion_Musei_Capitolini_MC1377.jpg/220px-Plato_Silanion_Musei_Capitolini_MC1377.jpg" alt="Plato"><h3>Plato</h3><p>c. 428–c. 348 BC</p><div class="links"><a href="https://en.wikipedia.org/wiki/Plato" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+     <div class="timeline-item philosopher" style="left: calc((-384 - -2000) / var(--total-years) * 100%);">
+        <div class="permanent-name">Aristotle</div><div class="lifespan" style="width: calc((-322 - -384) / var(--total-years) * 100%);"></div><div class="marker"></div>
+        <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Aristotle_Altemps_Inv8575.jpg/220px-Aristotle_Altemps_Inv8575.jpg" alt="Aristotle"><h3>Aristotle</h3><p>384–322 BC</p><div class="links"><a href="https://en.wikipedia.org/wiki/Aristotle" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item philosopher" style="left: calc((354 - -2000) / var(--total-years) * 100%);">
+      <div class="permanent-name">Augustine</div><div class="lifespan" style="width: calc((430 - 354) / var(--total-years) * 100%);"></div><div class="marker"></div>
+      <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Augustine_Lateran.jpg/220px-Augustine_Lateran.jpg" alt="Augustine of Hippo"><h3>Augustine of Hippo</h3><p>354–430</p><div class="links"><a href="https://en.wikipedia.org/wiki/Augustine_of_Hippo" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item philosopher" style="left: calc((1225 - -2000) / var(--total-years) * 100%);">
+      <div class="permanent-name">Aquinas</div><div class="lifespan" style="width: calc((1274 - 1225) / var(--total-years) * 100%);"></div><div class="marker"></div>
+      <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/St-thomas-aquinas.jpg/220px-St-thomas-aquinas.jpg" alt="Thomas Aquinas"><h3>Thomas Aquinas</h3><p>1225–1274</p><div class="links"><a href="https://en.wikipedia.org/wiki/Thomas_Aquinas" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item philosopher" style="left: calc((1596 - -2000) / var(--total-years) * 100%);">
+      <div class="permanent-name">Descartes</div><div class="lifespan" style="width: calc((1650 - 1596) / var(--total-years) * 100%);"></div><div class="marker"></div>
+      <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Frans_Hals_-_Portret_van_Ren%C3%A9_Descartes.jpg/220px-Frans_Hals_-_Portret_van_Ren%C3%A9_Descartes.jpg" alt="Descartes"><h3>René Descartes</h3><p>1596–1650</p><div class="links"><a href="https://en.wikipedia.org/wiki/Ren%C3%A9_Descartes" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item philosopher" style="left: calc((1724 - -2000) / var(--total-years) * 100%);">
+      <div class="permanent-name">Kant</div><div class="lifespan" style="width: calc((1804 - 1724) / var(--total-years) * 100%);"></div><div class="marker"></div>
+      <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Immanuel_Kant_%28painted_portrait%29.jpg/220px-Immanuel_Kant_%28painted_portrait%29.jpg" alt="Immanuel Kant"><h3>Immanuel Kant</h3><p>1724–1804</p><div class="links"><a href="https://en.wikipedia.org/wiki/Immanuel_Kant" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item philosopher" style="left: calc((1844 - -2000) / var(--total-years) * 100%);">
+      <div class="permanent-name">Nietzsche</div><div class="lifespan" style="width: calc((1900 - 1844) / var(--total-years) * 100%);"></div><div class="marker"></div>
+      <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Nietzsche187a.jpg/220px-Nietzsche187a.jpg" alt="Friedrich Nietzsche"><h3>Friedrich Nietzsche</h3><p>1844–1900</p><div class="links"><a href="https://en.wikipedia.org/wiki/Friedrich_Nietzsche" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+
+    <!-- === WRITERS (BLUE) === -->
+    <div class="timeline-item writer" style="left: calc((-800 - -2000) / var(--total-years) * 100%);">
+        <div class="permanent-name">Homer</div><div class="lifespan" style="width: calc((-750 - -800) / var(--total-years) * 100%);"></div><div class="marker"></div>
+        <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Homer_British_Museum.jpg/220px-Homer_British_Museum.jpg" alt="Homer"><h3>Homer</h3><p>c. 8th Century BC</p><div class="links"><a href="https://en.wikipedia.org/wiki/Homer" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item writer" style="left: calc((-70 - -2000) / var(--total-years) * 100%);">
+        <div class="permanent-name">Virgil</div><div class="lifespan" style="width: calc((-19 - -70) / var(--total-years) * 100%);"></div><div class="marker"></div>
+        <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Virgil-fragment.jpg/220px-Virgil-fragment.jpg" alt="Virgil"><h3>Virgil</h3><p>70–19 BC</p><div class="links"><a href="https://en.wikipedia.org/wiki/Virgil" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item writer" style="left: calc((1265 - -2000) / var(--total-years) * 100%);">
+        <div class="permanent-name">Dante Alighieri</div><div class="lifespan" style="width: calc((1321 - 1265) / var(--total-years) * 100%);"></div><div class="marker"></div>
+        <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Portrait_de_Dante.jpg/220px-Portrait_de_Dante.jpg" alt="Dante Alighieri"><h3>Dante Alighieri</h3><p>1265–1321</p><div class="links"><a href="https://en.wikipedia.org/wiki/Dante_Alighieri" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item writer" style="left: calc((1547 - -2000) / var(--total-years) * 100%);">
+        <div class="permanent-name">Cervantes</div><div class="lifespan" style="width: calc((1616 - 1547) / var(--total-years) * 100%);"></div><div class="marker"></div>
+        <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Cervantes_Jauregui.jpg/220px-Cervantes_Jauregui.jpg" alt="Miguel de Cervantes"><h3>Miguel de Cervantes</h3><p>1547–1616</p><div class="links"><a href="https://en.wikipedia.org/wiki/Miguel_de_Cervantes" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+     <div class="timeline-item writer" style="left: calc((1564 - -2000) / var(--total-years) * 100%);">
+        <div class="permanent-name">Shakespeare</div><div class="lifespan" style="width: calc((1616 - 1564) / var(--total-years) * 100%);"></div><div class="marker"></div>
+        <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Shakespeare.jpg/220px-Shakespeare.jpg" alt="William Shakespeare"><h3>William Shakespeare</h3><p>1564–1616</p><div class="links"><a href="https://en.wikipedia.org/wiki/William_Shakespeare" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+     <div class="timeline-item writer" style="left: calc((1775 - -2000) / var(--total-years) * 100%);">
+        <div class="permanent-name">Jane Austen</div><div class="lifespan" style="width: calc((1817 - 1775) / var(--total-years) * 100%);"></div><div class="marker"></div>
+        <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/CassandraAusten-JaneAusten%28c.1810%29_transparent.png/220px-CassandraAusten-JaneAusten%28c.1810%29_transparent.png" alt="Jane Austen"><h3>Jane Austen</h3><p>1775–1817</p><div class="links"><a href="https://en.wikipedia.org/wiki/Jane_Austen" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+    <div class="timeline-item writer" style="left: calc((1828 - -2000) / var(--total-years) * 100%);">
+        <div class="permanent-name">Leo Tolstoy</div><div class="lifespan" style="width: calc((1910 - 1828) / var(--total-years) * 100%);"></div><div class="marker"></div>
+        <div class="timeline-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/L.N.Tolstoy_Prokudin-Gorsky.jpg/220px-L.N.Tolstoy_Prokudin-Gorsky.jpg" alt="Leo Tolstoy"><h3>Leo Tolstoy</h3><p>1828–1910</p><div class="links"><a href="https://en.wikipedia.org/wiki/Leo_Tolstoy" target="_blank" class="link wiki-link">Wiki</a></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="zoom-slider-container">
+  <span>-</span>
+  <input type="range" id="zoom-slider" min="0" max="100" value="0">
+  <span>+</span>
+</div>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const container = document.querySelector('.timeline-container');
+    const wrapper = document.querySelector('.timeline-wrapper');
+    const zoomSlider = document.getElementById('zoom-slider');
+    const baseWidth = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--timeline-base-width'));
+    
+    // --- ZOOM LOGIC ---
+    const minZoom = 0.05; // Increased zoom-out
+    const maxZoom = 40.0; 
+    const logMin = Math.log(minZoom);
+    const logMax = Math.log(maxZoom);
+
+    let currentZoom = 1.0;
+    
+    const applyZoom = (newZoomLevel, pivotX) => {
+      const newZoom = Math.max(minZoom, Math.min(maxZoom, newZoomLevel));
+      const scrollRatio = (container.scrollLeft + pivotX) / wrapper.offsetWidth;
+      wrapper.style.width = `${baseWidth * newZoom}px`;
+      const newScrollLeft = (wrapper.offsetWidth * scrollRatio) - pivotX;
+      container.scrollLeft = newScrollLeft;
+      currentZoom = newZoom;
+      updateSlider();
+    };
+    
+    const updateSlider = () => {
+        const logCurrent = Math.log(currentZoom);
+        zoomSlider.value = 100 * (logCurrent - logMin) / (logMax - logMin);
+    };
+
+    // --- Mouse Wheel Zoom ---
+    container.addEventListener('wheel', (e) => {
+      if (!e.ctrlKey) return;
+      e.preventDefault();
+      const rect = container.getBoundingClientRect();
+      const mouseX = e.clientX - rect.left;
+      const zoomFactor = 1 - e.deltaY * 0.005;
+      applyZoom(currentZoom * zoomFactor, mouseX);
+    }, { passive: false });
+
+    // --- Touch Pinch-to-Zoom ---
+    let initialPinchDistance = 0;
+    let lastZoom = 1;
+    
+    const getDistance = (touches) => Math.hypot(touches[0].pageX - touches[1].pageX, touches[0].pageY - touches[1].pageY);
+
+    container.addEventListener('touchstart', (e) => {
+      if (e.touches.length === 2) {
+        e.preventDefault();
+        initialPinchDistance = getDistance(e.touches);
+        lastZoom = currentZoom;
+      }
+    }, { passive: false });
+
+    container.addEventListener('touchmove', (e) => {
+      if (e.touches.length === 2) {
+        e.preventDefault();
+        const rect = container.getBoundingClientRect();
+        const pivotX = ((e.touches[0].clientX + e.touches[1].clientX) / 2) - rect.left;
+        const newPinchDistance = getDistance(e.touches);
+        const zoomRatio = newPinchDistance / initialPinchDistance;
+        applyZoom(lastZoom * zoomRatio, pivotX);
+      }
+    }, { passive: false });
+    
+    // --- Zoom Slider Control ---
+    zoomSlider.addEventListener('input', (e) => {
+        const sliderValue = e.target.value / 100;
+        const newZoom = Math.exp(logMin + (logMax - logMin) * sliderValue);
+        const pivotX = container.clientWidth / 2;
+        applyZoom(newZoom, pivotX);
+    });
+
+    // --- PAN LOGIC ---
+    let isDown = false;
+    let startX;
+    let scrollLeftStart;
+
+    container.addEventListener('mousedown', (e) => {
+      if(e.button !== 0) return;
+      isDown = true;
+      container.style.cursor = 'grabbing';
+      startX = e.pageX - container.offsetLeft;
+      scrollLeftStart = container.scrollLeft;
+    });
+
+    container.addEventListener('mouseleave', () => { isDown = false; container.style.cursor = 'grab'; });
+    container.addEventListener('mouseup', () => { isDown = false; container.style.cursor = 'grab'; });
+    
+    container.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - container.offsetLeft;
+      const walk = (x - startX) * 2;
+      container.scrollLeft = scrollLeftStart - walk;
+    });
+    
+    // --- INITIALIZATION ---
+    applyZoom(1.0, container.clientWidth / 2);
+    container.scrollLeft = wrapper.offsetWidth;
+
+    // Dynamically generate year markers
+    const startYear = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--start-year'));
+    const endYear = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--end-year'));
+    const totalYears = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--total-years'));
+    
+    for (let year = -2000; year <= 2000; year += 100) {
+      if (year === 0) continue; // Skip year 0 for clarity
+      const yearMarker = document.createElement('div');
+      yearMarker.className = 'timeline-year';
+      yearMarker.style.left = `calc((${year} - ${startYear}) / ${totalYears} * 100%)`;
+      yearMarker.innerHTML = `<span class="timeline-year-label">${year < 0 ? `${-year} BC` : year}</span>`;
+      wrapper.appendChild(yearMarker);
+    }
+  });
+</script>
+
+</body>
+</html>
