@@ -107,6 +107,86 @@ document.addEventListener('DOMContentLoaded', function() {
             start: 1844,
             end: 1900
         },
+                {
+            name: "Confucius",
+            displayName: "Confucius",
+            dates: "551–479 BC",
+            description: "Confucius was a Chinese philosopher and politician of the Spring and Autumn period who is traditionally considered the paragon of Chinese sages.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Confucius_the_philosopher.jpg/220px-Confucius_the_philosopher.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Confucius",
+            start: -551,
+            end: -479
+        },
+        {
+            name: "Avicenna",
+            displayName: "Avicenna (Ibn Sina)",
+            dates: "c. 980–1037",
+            description: "Ibn Sina, known as Avicenna in the West, was a Persian polymath who is regarded as one of the most significant physicians, astronomers, thinkers and writers of the Islamic Golden Age.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Avicenna_Portrait.jpg/220px-Avicenna_Portrait.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Avicenna",
+            start: 980,
+            end: 1037
+        },
+        {
+            name: "Spinoza",
+            displayName: "Baruch Spinoza",
+            dates: "1632–1677",
+            description: "Baruch Spinoza was a Dutch philosopher of Portuguese Sephardi origin. One of the foremost exponents of 17th-century Rationalism, his work has been highly influential in modern philosophy.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Spinoza.jpg/220px-Spinoza.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Baruch_Spinoza",
+            start: 1632,
+            end: 1677
+        },
+        {
+            name: "Voltaire",
+            displayName: "Voltaire",
+            dates: "1694–1778",
+            description: "François-Marie Arouet, known by his nom de plume Voltaire, was a French Enlightenment writer, historian, and philosopher famous for his wit and his advocacy of freedom of speech and religion.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Atelier_de_Nicolas_de_Largilli%C3%A8re%2C_portrait_de_Voltaire%2C_d%C3%A9tail_%28mus%C3%A9e_Carnavalet%29.jpg/220px-Atelier_de_Nicolas_de_Largilli%C3%A8re%2C_portrait_de_Voltaire%2C_d%C3%A9tail_%28mus%C3%A9e_Carnavalet%29.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Voltaire",
+            start: 1694,
+            end: 1778
+        },
+        {
+            name: "Wollstonecraft",
+            displayName: "Mary Wollstonecraft",
+            dates: "1759–1797",
+            description: "Mary Wollstonecraft was an English writer, philosopher, and advocate of women's rights. She is best known for her work 'A Vindication of the Rights of Woman'.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Mary_Wollstonecraft_by_John_Opie_%28c._1797%29.jpg/220px-Mary_Wollstonecraft_by_John_Opie_%28c._1797%29.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Mary_Wollstonecraft",
+            start: 1759,
+            end: 1797
+        },
+        {
+            name: "Kierkegaard",
+            displayName: "Søren Kierkegaard",
+            dates: "1813–1855",
+            description: "Søren Aabye Kierkegaard was a Danish philosopher, theologian, poet, social critic and religious author who is widely considered to be the first existentialist philosopher.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/S%C3%B8ren_Kierkegaard_portrait.jpg/220px-S%C3%B8ren_Kierkegaard_portrait.jpg",
+            wiki: "https://en.wikipedia.org/wiki/S%C3%B8ren_Kierkegaard",
+            start: 1813,
+            end: 1855
+        },
+        {
+            name: "De Beauvoir",
+            displayName: "Simone de Beauvoir",
+            dates: "1908–1986",
+            description: "Simone de Beauvoir was a French writer, intellectual, existentialist philosopher, political activist, feminist, and social theorist. She is best known for her 1949 treatise 'The Second Sex'.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Simone_de_Beauvoir2.jpg/220px-Simone_de_Beauvoir2.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Simone_de_Beauvoir",
+            start: 1908,
+            end: 1986
+        },
+        {
+            name: "Camus",
+            displayName: "Albert Camus",
+            dates: "1913–1960",
+            description: "Albert Camus was a French philosopher, author, and journalist. His views contributed to the rise of the philosophy known as absurdism. He was a key figure in 20th-century literature and philosophy.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Albert_Camus%2C_gagnant_de_prix_Nobel%2C_portrait_en_buste%2C_pos%C3%A9_au_bureau%2C_faisant_face_%C3%A0_gauche.jpg/220px-Albert_Camus%2C_gagnant_de_prix_Nobel%2C_portrait_en_buste%2C_pos%C3%A9_au_bureau%2C_faisant_face_%C3%A0_gauche.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Albert_Camus",
+            start: 1913,
+            end: 1960
+        },
         {
             name: "Sartre",
             displayName: "Jean-Paul Sartre",
@@ -121,7 +201,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const wrapper = document.querySelector('.timeline-wrapper');
     const startYearVar = -115000;
-    const totalYearsVar = 117025;
+    const totalYearsVar = 117100;
 
     philosophers.forEach(philosopher => {
         const leftPosition = `calc((${philosopher.start} - ${startYearVar}) / ${totalYearsVar} * 100%)`;
@@ -129,7 +209,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const displayName = philosopher.displayName || philosopher.name;
 
         const itemHTML = `
-            <div class="timeline-item philosopher" style="left: ${leftPosition}; width: ${itemWidth};">
+            <div class="timeline-item philosophers" style="left: ${leftPosition}; width: ${itemWidth};">
                 <div class="permanent-name">${philosopher.name}</div>
                 <div class="lifespan" style="width: 100%;"></div>
                 <div class="marker"></div>
