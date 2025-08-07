@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const wrapper = document.querySelector('.timeline-wrapper');
     const startYearVar = -115000;
-    const totalYearsVar = 117025;
+    const totalYearsVar = 117100;
 
     writers.forEach(writer => {
         const leftPosition = `calc((${writer.start} - ${startYearVar}) / ${totalYearsVar} * 100%)`;
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const displayName = writer.displayName || writer.name;
 
         const itemHTML = `
-            <div class="timeline-item writer" style="left: ${leftPosition}; width: ${itemWidth};">
+            <div class="timeline-item writers" style="left: ${leftPosition}; width: ${itemWidth};">
                 <div class="permanent-name">${writer.name}</div>
                 <div class="lifespan" style="width: 100%;"></div>
                 <div class="marker"></div>
