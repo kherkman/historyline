@@ -9,6 +9,472 @@ document.addEventListener('DOMContentLoaded', function() {
             start: -336,
             end: -323
         },
+                {
+            name: "Djoser",
+            dates: "r. c. 2686–2649 BC",
+            description: "Djoser was an ancient Egyptian pharaoh of the 3rd Dynasty during the Old Kingdom and the founder of this epoch. He is well known for his step pyramid at Saqqara.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Cairo_Museum_Statue_of_Djoser.jpg/220px-Cairo_Museum_Statue_of_Djoser.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Djoser",
+            start: -2686,
+            end: -2649
+        },
+        {
+            name: "Cyrus the Great",
+            dates: "r. 559–530 BC",
+            description: "Cyrus the Great was the founder of the Achaemenid Empire, the first Persian Empire.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Pasargadae_-_Cyrus_the_Great_Tomb_-_panoramic_view.jpg/220px-Pasargadae_-_Cyrus_the_Great_Tomb_-_panoramic_view.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Cyrus_the_Great",
+            start: -559,
+            end: -530
+        },
+        {
+            name: "Darius the Great",
+            dates: "r. 522–486 BC",
+            description: "Darius I, commonly known as Darius the Great, was the third Persian king of the Achaemenid Empire. He ruled the empire at its peak.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Darius_I_the_Great_Tomb_Relief.jpg/220px-Darius_I_the_Great_Tomb_Relief.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Darius_the_Great",
+            start: -522,
+            end: -486
+        },
+        {
+            name: "Xerxes I",
+            dates: "r. 486–465 BC",
+            description: "Xerxes I, commonly known as Xerxes the Great, was the fourth King of Kings of the Achaemenid Empire. He is best known for his massive invasion of Greece.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Xerxes_I_-_Vase_of_Xerxes_I_-_National_Museum_of_Iran.jpg/220px-Xerxes_I_-_Vase_of_Xerxes_I_-_National_Museum_of_Iran.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Xerxes_I",
+            start: -486,
+            end: -465
+        },
+        {
+            name: "Thutmose III",
+            dates: "r. 1479–1425 BC",
+            description: "Thutmose III was the sixth pharaoh of the Eighteenth Dynasty. During the first 22 years of his reign, he was co-regent with his stepmother, Hatshepsut.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Thutmose_III_in_the_Luxor_Museum-2.jpg/220px-Thutmose_III_in_the_Luxor_Museum-2.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Thutmose_III",
+            start: -1479,
+            end: -1425
+        },
+        {
+            name: "Amenhotep III",
+            dates: "r. c. 1388–1351 BC",
+            description: "Amenhotep III was the ninth pharaoh of the Eighteenth Dynasty. His reign was a period of unprecedented prosperity and artistic splendor.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Colossi_of_Memnon_in_2017.jpg/220px-Colossi_of_Memnon_in_2017.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Amenhotep_III",
+            start: -1388,
+            end: -1351
+        },
+        {
+            name: "Qin Shi Huang",
+            dates: "r. 221–210 BC",
+            description: "Qin Shi Huang was the founder of the Qin dynasty and the first emperor of a unified China.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Terracotta_Army_in_Xian.jpg/220px-Terracotta_Army_in_Xian.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Qin_Shi_Huang",
+            start: -221,
+            end: -210
+        },
+        {
+            name: "Emperor Wu of Han",
+            displayName: "Emperor Wu",
+            dates: "r. 141–87 BC",
+            description: "Emperor Wu was the seventh emperor of the Han dynasty of China, ruling for 54 years, a record not broken until the reign of the Kangxi Emperor more than 1,800 years later.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Han_Wudi.jpg/220px-Han_Wudi.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Emperor_Wu_of_Han",
+            start: -141,
+            end: -87
+        },
+        {
+            name: "K'inich Janaab' Pakal",
+            displayName: "Pakal the Great",
+            dates: "r. 615–683",
+            description: "K'inich Janaab' Pakal I, also known as Pacal the Great, was ajaw of the Maya city-state of Palenque. He was responsible for the construction of some of Palenque's most notable surviving inscriptions and monumental architecture.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Sarcophagus_lid_of_Palenque_ruler_K'inich_Janaab'_Pakal.jpg/220px-Sarcophagus_lid_of_Palenque_ruler_K'inich_Janaab'_Pakal.jpg",
+            wiki: "https://en.wikipedia.org/wiki/K'inich_Janaab'_Pakal",
+            start: 615,
+            end: 683
+        },
+        {
+            name: "Yik'in Chan K'awiil",
+            dates: "r. 734–c. 755",
+            description: "Yik'in Chan K'awiil was a Mayan king of the city of Tikal. He was one of Tikal's most successful and expansionary rulers.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Tikal_Temple4_Lintel3_Drawing.jpg/220px-Tikal_Temple4_Lintel3_Drawing.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Yik%27in_Chan_K%27awiil",
+            start: 734,
+            end: 755
+        },
+        {
+            name: "Emperor Taizong of Tang",
+            displayName: "Emperor Taizong",
+            dates: "r. 626–649",
+            description: "Emperor Taizong was the second emperor of the Tang dynasty of China. His reign is regarded as a golden age of Chinese history and he is considered one of the greatest emperors in Chinese history.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Emperor_Taizong_of_Tang_in_Thirteen_Emperors_Scroll.jpg/220px-Emperor_Taizong_of_Tang_in_Thirteen_Emperors_Scroll.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Emperor_Taizong_of_Tang",
+            start: 626,
+            end: 649
+        },
+        {
+            name: "Hongwu Emperor",
+            displayName: "Zhu Yuanzhang",
+            dates: "r. 1368–1398",
+            description: "The Hongwu Emperor, personal name Zhu Yuanzhang, was the founding emperor of the Ming dynasty.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Portrait_of_the_Hongwu_Emperor.jpg/220px-Portrait_of_the_Hongwu_Emperor.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Hongwu_Emperor",
+            start: 1368,
+            end: 1398
+        },
+        {
+            name: "Kangxi Emperor",
+            displayName: "Kangxi",
+            dates: "r. 1661–1722",
+            description: "The Kangxi Emperor was the fourth emperor of the Qing dynasty, and the second Qing emperor to rule over China proper, reigning for 61 years, making him the longest-reigning Chinese emperor.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/The_Kangxi_Emperor_in_Court_Dress.jpg/220px-The_Kangxi_Emperor_in_Court_Dress.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Kangxi_Emperor",
+            start: 1661,
+            end: 1722
+        },
+                {
+            name: "Narmer",
+            dates: "r. c. 3100 BC",
+            description: "Believed to be the successor to the predynastic Scorpion and/or Ka, he is considered by some to be the unifier of Egypt and founder of the First Dynasty, and therefore the first king of all Egypt.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Narmer_Palette.jpg/220px-Narmer_Palette.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Narmer",
+            start: -3100,
+            end: -3050
+        },
+        {
+            name: "Sneferu",
+            dates: "r. c. 2613–2589 BC",
+            description: "Sneferu was the founding pharaoh of the Fourth Dynasty of Egypt during the Old Kingdom. He is credited with building three pyramids, including the Red Pyramid and the Bent Pyramid.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Red_Pyramid.jpg/220px-Red_Pyramid.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Sneferu",
+            start: -2613,
+            end: -2589
+        },
+        {
+            name: "Menkaure",
+            dates: "r. c. 2532–2503 BC",
+            description: "Menkaure was an ancient Egyptian king (pharaoh) of the 4th dynasty during the Old Kingdom. He is well known for his pyramid tomb at Giza.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Mykerinos_pyramid.jpg/220px-Mykerinos_pyramid.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Menkaure",
+            start: -2532,
+            end: -2503
+        },
+        {
+            name: "Pepi II",
+            dates: "r. c. 2278–2184 BC",
+            description: "Pepi II Neferkare was a pharaoh of the Sixth Dynasty in Egypt's Old Kingdom who reigned from c. 2278 BC. His reign of 94 years is the longest of any monarch in history.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Pepi_II_and_Ankhesenpepi_II_Brooklyn_Museum.jpg/220px-Pepi_II_and_Ankhesenpepi_II_Brooklyn_Museum.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Pepi_II_Neferkare",
+            start: -2278,
+            end: -2184
+        },
+        {
+            name: "Ashurnasirpal II",
+            dates: "r. 883–859 BC",
+            description: "Ashurnasirpal II was king of Assyria from 883 to 859 BC. He was known for his military campaigns and the construction of a new capital at Kalhu (Nimrud).",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Relief_of_Ashurnasirpal_II-British_Museum.jpg/220px-Relief_of_Ashurnasirpal_II-British_Museum.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Ashurnasirpal_II",
+            start: -883,
+            end: -859
+        },
+        {
+            name: "Shalmaneser III",
+            dates: "r. 859–824 BC",
+            description: "Shalmaneser III was a king of the Neo-Assyrian Empire who reigned from 859 to 824 BC. His reign was marked by a series of campaigns against the eastern tribes, the Babylonians, and the nations of Mesopotamia and Syria.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Black_Obelisk_of_Shalmaneser_III_-_Jehu_bowing.jpg/220px-Black_Obelisk_of_Shalmaneser_III_-_Jehu_bowing.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Shalmaneser_III",
+            start: -859,
+            end: -824
+        },
+        {
+            name: "Tiglath-Pileser III",
+            dates: "r. 745–727 BC",
+            description: "Tiglath-Pileser III was a prominent king of Assyria in the eighth century BC who introduced advanced civil, military, and political systems into the Neo-Assyrian Empire.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Tiglath-Pileser_III_in_his_chariot.jpg/220px-Tiglath-Pileser_III_in_his_chariot.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Tiglath-Pileser_III",
+            start: -745,
+            end: -727
+        },
+        {
+            name: "Sargon II",
+            dates: "r. 722–705 BC",
+            description: "Sargon II was a king of the Neo-Assyrian Empire. He was a son of Tiglath-Pileser III and is recognized as one of the most important Neo-Assyrian kings.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Sargon_II_and_dignitary.jpg/220px-Sargon_II_and_dignitary.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Sargon_II",
+            start: -722,
+            end: -705
+        },
+        {
+            name: "Sennacherib",
+            dates: "r. 705–681 BC",
+            description: "Sennacherib was the king of the Neo-Assyrian Empire from the death of his father Sargon II in 705 BC to his own death in 681 BC. He is known for his military campaigns, particularly against Babylon and Judah.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Sennacherib_on_his_throne.jpg/220px-Sennacherib_on_his_throne.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Sennacherib",
+            start: -705,
+            end: -681
+        },
+        {
+            name: "Ashurbanipal",
+            dates: "r. 668–627 BC",
+            description: "Ashurbanipal was the king of the Neo-Assyrian Empire from 668 to c. 627 BC, the son of Esarhaddon and the last strong king of the empire.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Lion_Hunt_of_Ashurbanipal_in_the_British_Museum.jpg/220px-Lion_Hunt_of_Ashurbanipal_in_the_British_Museum.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Ashurbanipal",
+            start: -668,
+            end: -627
+        },
+                {
+            name: "Ur-Nammu",
+            dates: "r. c. 2112–2095 BC",
+            description: "The founder of the Third Dynasty of Ur, Ur-Nammu is credited with creating one of the oldest known law codes. [2, 18] He reunified much of southern Mesopotamia after the fall of the Akkadian Empire. [2, 3]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Stele_of_Ur-Nammu_%28restored%29.jpg/220px-Stele_of_Ur-Nammu_%28restored%29.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Ur-Nammu",
+            start: -2112,
+            end: -2095
+        },
+        {
+            name: "Shulgi",
+            dates: "r. c. 2094–2047 BC",
+            description: "A king of the Third Dynasty of Ur, Shulgi's long reign was marked by the consolidation and centralization of the empire. He was deified during his lifetime, a practice established by earlier Akkadian rulers. [16]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Shulgi_Louvre.jpg/220px-Shulgi_Louvre.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Shulgi",
+            start: -2094,
+            end: -2047
+        },
+        {
+            name: "Sargon of Akkad",
+            dates: "r. c. 2334–2279 BC",
+            description: "Sargon of Akkad founded the Akkadian Empire, the first great empire in Mesopotamian history. [4, 6] His dynasty, including his sons Rimush and Manishtusu and his grandson Naram-Sin, ruled for 142 years. [4, 5]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Sargon_of_Akkad_and_his_royal_court.jpg/220px-Sargon_of_Akkad_and_his_royal_court.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Sargon_of_Akkad",
+            start: -2334,
+            end: -2279
+        },
+        {
+            name: "Naram-Sin",
+            dates: "r. c. 2254–2218 BC",
+            description: "The grandson of Sargon, Naram-Sin's reign marked the peak of the Akkadian Empire. [4, 20] He was the first Mesopotamian king to be deified and was called the 'God of Akkad'. [6]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Victory_stele_of_Naram_Sin_from_Sippar_in_Mesopotamia_2250_BC_Louvre_Museum.jpg/220px-Victory_stele_of_Naram_Sin_from_Sippar_in_Mesopotamia_2250_BC_Louvre_Museum.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Naram-Sin_of_Akkad",
+            start: -2254,
+            end: -2218
+        },
+        {
+            name: "Mentuhotep II",
+            dates: "r. c. 2055–2004 BC",
+            description: "Credited with reunifying Egypt after the tumultuous First Intermediate Period, Mentuhotep II is considered the founder of the Middle Kingdom. [7, 10] He moved the capital to Thebes and oversaw a cultural and architectural renaissance. [7, 10]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Statue_of_Mentuhotep_II_in_the_Egyptian_Museum.jpg/220px-Statue_of_Mentuhotep_II_in_the_Egyptian_Museum.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Mentuhotep_II",
+            start: -2055,
+            end: -2004
+        },
+        {
+            name: "Senusret III",
+            dates: "r. c. 1878–1839 BC",
+            description: "Often regarded as the most powerful pharaoh of the Middle Kingdom, Senusret III led successful military campaigns into Nubia and implemented significant economic reforms to centralize power. [7, 10]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Head_of_a_statue_of_Senusret_III_from_the_British_Museum.jpg/220px-Head_of_a_statue_of_Senusret_III_from_the_British_Museum.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Senusret_III",
+            start: -1878,
+            end: -1839
+        },
+        {
+            name: "Amenemhat III",
+            dates: "r. c. 1860–1814 BC",
+            description: "The reign of Amenemhat III marked the height of the Middle Kingdom's economic prosperity. [10] He is known for the extensive exploitation of Egypt's natural resources and major construction projects, including the expansion of the Faiyum Oasis. [10]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Head_of_Amenemhat_III_as_a_young_man_Ny_Carlsberg_Glyptotek.jpg/220px-Head_of_Amenemhat_III_as_a_young_man_Ny_Carlsberg_Glyptotek.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Amenemhat_III",
+            start: -1860,
+            end: -1814
+        },
+        {
+            name: "Hattusili I",
+            dates: "r. c. 1650–1620 BC",
+            description: "An early king of the Hittite Old Kingdom, Hattusili I is credited with establishing the Hittite capital at Hattusa and expanding its territory into northern Syria. [17, 32]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Hittite_Relief_from_the_royal_gate_at_Hattusa.jpg/220px-Hittite_Relief_from_the_royal_gate_at_Hattusa.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Hattusili_I",
+            start: -1650,
+            end: -1620
+        },
+        {
+            name: "Mursili I",
+            dates: "r. c. 1620–1590 BC",
+            description: "The grandson of Hattusili I, Mursili I is famous for his raid on Babylon, which brought an end to the Amorite dynasty. [17] His assassination led to a period of dynastic struggle. [17]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Lion_Gate_at_Hattusa.jpg/220px-Lion_Gate_at_Hattusa.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Mursili_I",
+            start: -1620,
+            end: -1590
+        },
+                {
+            name: "Justinian I",
+            dates: "r. 527–565 AD",
+            description: "Justinian I, also known as Justinian the Great, was a Byzantine emperor who sought to revive the empire's greatness and reconquer the lost western half of the historical Roman Empire. [23]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Meister_von_San_Vitale_in_Ravenna_003.jpg/220px-Meister_von_San_Vitale_in_Ravenna_003.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Justinian_I",
+            start: 527,
+            end: 565
+        },
+        {
+            name: "Harun al-Rashid",
+            dates: "r. 786–809 AD",
+            description: "Harun al-Rashid was the fifth Abbasid Caliph. His reign is traditionally regarded to be the beginning of the Islamic Golden Age.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Harun_al-Rashid_and_the_Barmakids.jpg/220px-Harun_al-Rashid_and_the_Barmakids.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Harun_al-Rashid",
+            start: 786,
+            end: 809
+        },
+        {
+            name: "Emperor Taizong of Tang",
+            displayName: "Emperor Taizong",
+            dates: "r. 626–649",
+            description: "Emperor Taizong was the second emperor of the Tang dynasty of China. His reign, the 'Reign of Zhenguan', is considered a golden age in Chinese history and he is considered one of the greatest emperors in Chinese history. [9]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Emperor_Taizong_of_Tang_in_Thirteen_Emperors_Scroll.jpg/220px-Emperor_Taizong_of_Tang_in_Thirteen_Emperors_Scroll.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Emperor_Taizong_of_Tang",
+            start: 626,
+            end: 649
+        },
+        {
+            name: "Empress Wu Zetian",
+            displayName: "Wu Zetian",
+            dates: "r. 690–705",
+            description: "Wu Zetian was the only female emperor of China, reigning during the Tang dynasty. She was known for her political and military leadership, and her reign saw a significant expansion of the empire.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Wu_Zetian_as_Emperor.jpg/220px-Wu_Zetian_as_Emperor.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Wu_Zetian",
+            start: 690,
+            end: 705
+        },
+        {
+            name: "Alfred the Great",
+            dates: "r. 871–899",
+            description: "Alfred the Great was King of the West Saxons. He successfully defended his kingdom against the Viking attempt at conquest and by the time of his death had become the dominant ruler in England. [31]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Alfred_the_Great_by_Samuel_Woodforde.jpg/220px-Alfred_the_Great_by_Samuel_Woodforde.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Alfred_the_Great",
+            start: 871,
+            end: 899
+        },
+        {
+            name: "Rajaraja I",
+            dates: "r. 985–1014",
+            description: "Rajaraja I was a Chola emperor who ruled over a vast region in southern India. [18] He is remembered for the construction of the Brihadisvara Temple in Thanjavur, a UNESCO World Heritage Site.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Brihadisvara_Temple_at_Thanjavur.jpg/220px-Brihadisvara_Temple_at_Thanjavur.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Rajaraja_I",
+            start: 985,
+            end: 1014
+        },
+        {
+            name: "Basil II",
+            dates: "r. 976–1025",
+            description: "Basil II, known as the 'Bulgar-Slayer', was a Byzantine emperor of the Macedonian dynasty. He oversaw the stabilization of the eastern frontier and the complete subjugation of the First Bulgarian Empire, the empire's foremost European foe. [5]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Basil_II_in_his_triumph.jpg/220px-Basil_II_in_his_triumph.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Basil_II",
+            start: 976,
+            end: 1025
+        },
+        {
+            name: "William the Conqueror",
+            dates: "r. 1066–1087",
+            description: "William I, usually known as William the Conqueror, was the first Norman King of England. He launched the Norman conquest of England in 1066. [30]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Bayeux_Tapestry_scene57_Harold_death.jpg/220px-Bayeux_Tapestry_scene57_Harold_death.jpg",
+            wiki: "https://en.wikipedia.org/wiki/William_the_Conqueror",
+            start: 1066,
+            end: 1087
+        },
+        {
+            name: "Saladin",
+            dates: "r. 1174–1193",
+            description: "Saladin was a Sunni Muslim Kurd who became the first sultan of both Egypt and Syria, and was the founder of the Ayyubid dynasty. He led the Muslim military campaign against the Crusader states in the Levant.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Saladin-Krach_des_Chevaliers.jpg/220px-Saladin-Krach_des_Chevaliers.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Saladin",
+            start: 1174,
+            end: 1193
+        },
+        {
+            name: "Emperor Go-Daigo",
+            dates: "r. 1318–1339",
+            description: "Emperor Go-Daigo was the 96th emperor of Japan. He is known for launching the Kenmu Restoration in 1333, an attempt to reassert imperial power against the Kamakura shogunate. [25, 7]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Emperor_Go-Daigo.jpg/220px-Emperor_Go-Daigo.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Emperor_Go-Daigo",
+            start: 1318,
+            end: 1339
+        },
+                {
+            name: "Pericles",
+            dates: "General of Athens c. 461–429 BC",
+            description: "Pericles was a prominent and influential Greek statesman, orator and general of Athens during its golden age – specifically the time between the Persian and Peloponnesian wars.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Pericles_Pio-Clementino_Inv269.jpg/220px-Pericles_Pio-Clementino_Inv269.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Pericles",
+            start: -461,
+            end: -429
+        },
+        {
+            name: "Chandragupta Maurya",
+            dates: "r. c. 322–297 BC",
+            description: "Chandragupta Maurya was the founder of the Maurya Empire in ancient India. He built one of the largest empires on the Indian subcontinent.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Chandragupta_Maurya_in_Imagination.jpg/220px-Chandragupta_Maurya_in_Imagination.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Chandragupta_Maurya",
+            start: -322,
+            end: -297
+        },
+        {
+            name: "Ashoka the Great",
+            dates: "r. c. 268–232 BC",
+            description: "Ashoka was an Indian emperor of the Maurya Dynasty who ruled almost all of the Indian subcontinent. He is credited with the spread of Buddhism across Asia.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Lion_Capital_of_Ashoka.jpg/220px-Lion_Capital_of_Ashoka.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Ashoka",
+            start: -268,
+            end: -232
+        },
+        {
+            name: "Attila the Hun",
+            dates: "r. 434–453",
+            description: "Attila, frequently called Attila the Hun, was the ruler of the Huns from 434 until his death in March 453. He was a leader of the Hunnic Empire, a tribal confederation consisting of Huns, Ostrogoths, and Alans among others, on the territory of Central and Eastern Europe.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Attila_the_Hun_by_Delacroix.jpg/220px-Attila_the_Hun_by_Delacroix.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Attila",
+            start: 434,
+            end: 453
+        },
+        {
+            name: "Isabella I of Castile",
+            dates: "r. 1474–1504",
+            description: "Isabella I was Queen of Castile from 1474 until her death. Her marriage to Ferdinand II of Aragon became the basis for the political unification of Spain. She and Ferdinand are known for completing the Reconquista and for financing Christopher Columbus's 1492 voyage.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Isabel_la_Cat%C3%B3lica_%28Museo_del_Prado%29.jpg/220px-Isabel_la_Cat%C3%B3lica_%28Museo_del_Prado%29.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Isabella_I_of_Castile",
+            start: 1474,
+            end: 1504
+        },
+        {
+            name: "Montezuma II",
+            dates: "r. 1502–1520",
+            description: "Moctezuma II, variant spellings include Montezuma, was the ninth tlatoani or ruler of Tenochtitlan, reigning from 1502 to 1520. The first contact between indigenous civilizations of Mesoamerica and Europeans took place during his reign.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Moctezuma_II.jpg/220px-Moctezuma_II.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Moctezuma_II",
+            start: 1502,
+            end: 1520
+        },
+        {
+            name: "Akbar the Great",
+            dates: "r. 1556–1605",
+            description: "Abu'l-Fath Jalal-ud-din Muhammad Akbar, popularly known as Akbar the Great, was the third Mughal emperor, who reigned from 1556 to 1605. Akbar succeeded his father, Humayun, and gradually enlarged the Mughal Empire to include nearly all of the Indian Subcontinent.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Akbar_and_Tansen_in_the_imperial_court_of_the_Mughal_Empire.jpg/220px-Akbar_and_Tansen_in_the_imperial_court_of_the_Mughal_Empire.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Akbar",
+            start: 1556,
+            end: 1605
+        },
+        {
+            name: "Peter the Great",
+            dates: "r. 1682–1725",
+            description: "Peter the Great was a monarch of the Tsardom of Russia and later the Russian Empire from 7 May [O.S. 27 April] 1682 until his death in 1725, jointly ruling before 1696 with his elder half-brother, Ivan V.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Peter_the_Great_by_Paul_Delaroche_%281838%2C_Hamburg%29.jpg/220px-Peter_the_Great_by_Paul_Delaroche_%281838%2C_Hamburg%29.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Peter_the_Great",
+            start: 1682,
+            end: 1725
+        },
+        {
+            name: "Napoleon Bonaparte",
+            dates: "Emperor of the French 1804–1814, 1815",
+            description: "Napoléon Bonaparte was a French military and political leader who rose to prominence during the French Revolution and led several successful campaigns during the French Revolutionary Wars. He was Emperor of the French as Napoleon I from 1804 until 1814 and again briefly in 1815 during the Hundred Days.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Jacques-Louis_David_-_The_Emperor_Napoleon_in_His_Study_at_the_Tuileries_-_Google_Art_Project.jpg/220px-Jacques-Louis_David_-_The_Emperor_Napoleon_in_His_Study_at_the_Tuileries_-_Google_Art_Project.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Napoleon",
+            start: 1804,
+            end: 1815
+        },
         {
             name: "Julius Caesar",
             dates: "Dictator 49–44 BC",
@@ -278,7 +744,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const wrapper = document.querySelector('.timeline-wrapper');
     const startYearVar = -115000;
-    const totalYearsVar = 117025;
+    const totalYearsVar = 117100;
 
     rulers.forEach(ruler => {
         const leftPosition = `calc((${ruler.start} - ${startYearVar}) / ${totalYearsVar} * 100%)`;
@@ -286,7 +752,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const displayName = ruler.displayName || ruler.name;
 
         const itemHTML = `
-            <div class="timeline-item ruler" style="left: ${leftPosition}; width: ${itemWidth};">
+            <div class="timeline-item rulers" style="left: ${leftPosition}; width: ${itemWidth};">
                 <div class="permanent-name">${ruler.name}</div>
                 <div class="lifespan" style="width: 100%;"></div>
                 <div class="marker"></div>
