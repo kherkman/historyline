@@ -566,7 +566,96 @@ document.addEventListener('DOMContentLoaded', function() {
             wiki: "https://en.wikipedia.org/wiki/Spanish%E2%80%93American_War",
             start: 1898,
             end: 1899
+        },
+        {
+            name: "First Opium War",
+            description: "A conflict between Britain and China from 1839 to 1842 that arose from China's attempts to suppress the illegal opium trade. [1, 4, 5, 7]",
+            dates: "1839–1842",
+            wiki: "https://en.wikipedia.org/wiki/First_Opium_War",
+            start: 1839,
+            end: 1842
+        },
+        {
+            name: "Second Opium War",
+            description: "A war from 1856 to 1860, pitting the British Empire and the French Empire against the Qing dynasty of China. The conflict was a continuation of the First Opium War. [1, 2, 3, 5]",
+            dates: "1856–1860",
+            wiki: "https://en.wikipedia.org/wiki/Second_Opium_War",
+            start: 1856,
+            end: 1860
+        },
+        {
+        name: "Spanish Civil War",
+        description: "A military revolt, led by General Francisco Franco, against the Republican government of Spain. The conflict ended with a Nationalist victory and Franco ruling Spain as a dictator until his death in 1975. [1, 4, 5, 6, 7]",
+        dates: "1936–1939",
+        wiki: "https://en.wikipedia.org/wiki/Spanish_Civil_War",
+        start: 1936,
+        end: 1939
+        },
+        {
+            name: "Russo-Japanese War",
+            description: "A military conflict between the Russian Empire and the Empire of Japan from 1904 to 1905, primarily over rival imperial ambitions in Manchuria and Korea.",
+            dates: "1904–1905",
+            wiki: "https://en.wikipedia.org/wiki/Russo-Japanese_War",
+            start: 1904,
+            end: 1905
+        },
+        {
+            name: "Sino-Japanese War",
+            description: "A conflict between China and Japan from 1937 to 1945, which was part of the larger conflict of World War II. It resulted in significant territorial losses for China and marked Japan's rise as a major military power.",
+            dates: "1937–1945",
+            wiki: "https://en.wikipedia.org/wiki/Sino-Japanese_War_(1937%E2%80%931945)",
+            start: 1937,
+            end: 1945
+        },
+        {
+        name: "Italo-Turkish War",
+        description: "A conflict fought between the Kingdom of Italy and the Ottoman Empire from September 29, 1911, to October 18, 1912. [2, 5] Italy's primary motivation was to gain colonies in North Africa by conquering the Turkish provinces of Tripolitana and Cyrenaica, which constitute modern Libya. [6] The war ended with the Treaty of Lausanne, in which Turkey conceded its rights over Tripoli and Cyrenaica to Italy. [6]",
+        dates: "1911–1912",
+        wiki: "https://en.wikipedia.org/wiki/Italo-Turkish_War",
+        start: 1911,
+        end: 1912
+        },
+        {
+            name: "Gulf War",
+            description: "A conflict between Iraq and a coalition of 35 nations led by the United States, following Iraq's invasion of Kuwait in 1990. The war resulted in the liberation of Kuwait and significant damage to Iraq's military infrastructure.",
+            dates: "1990–1991",
+            wiki: "https://en.wikipedia.org/wiki/Gulf_War",
+            start: 1990,
+            end: 1991
+        },
+        {
+            name: "Iraq War",
+            description: "A protracted armed conflict that began with the invasion of Iraq by a United States-led coalition in March 2003, resulting in the toppling of Saddam Hussein's regime.",
+            dates: "2003–2011",
+            wiki: "https://en.wikipedia.org/wiki/Iraq_War",
+            start: 2003,
+            end: 2011
+        },
+        {
+            name: "Syrian Civil War",
+            description: "An ongoing multi-sided armed conflict in Syria, which began in 2011 as part of the wider wave of the Arab Spring protests. The war has resulted in significant loss of life and displacement of people.",
+            dates: "2011–Present",
+            wiki: "https://en.wikipedia.org/wiki/Syrian_Civil_War",
+            start: 2011,
+            end: 2025
+        },
+        {
+            name: "Yugoslav Wars",
+            description: "A series of ethnically-based wars and conflicts fought in the former Yugoslavia from 1991 to 2001, following the breakup of the country.",
+            dates: "1991–2001",
+            wiki: "https://en.wikipedia.org/wiki/Yugoslav_Wars",
+            start: 1991,
+            end: 2001
+        },
+        {
+            name: "Russian Civil War",
+            description: "A multi-party war in the former Russian Empire fought between the Bolshevik Red Army and a loose confederation of anti-Bolshevik groups known as the White Army.",
+            dates: "1917–1922",
+            wiki: "https://en.wikipedia.org/wiki/Russian_Civil_War",
+            start: 1917,
+            end: 1922
         }
+
     ];
 
     const wrapper = document.querySelector('.timeline-wrapper');
