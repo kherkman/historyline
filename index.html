@@ -41,7 +41,8 @@
     align-items: center;
     min-height: 100vh;
     overflow: hidden;
-    touch-action: pan-y;
+    /* MODIFIED: Changed touch-action to 'none' to allow manual handling of panning */
+    touch-action: none;
   }
 
   .timeline-container {
@@ -50,14 +51,13 @@
     overflow: scroll; /* Ensures both scrollbars are visible */
     box-sizing: border-box;
     cursor: grab;
-    touch-action: pan-y pinch-zoom;
     padding-top: 200px; /* Added empty space at the top */
   }
   .timeline-container:active {
       cursor: grabbing;
   }
 
-  /* --- Increased Scrollbar Size --- */
+  /* --- MODIFIED: Increased Scrollbar Size --- */
   .timeline-container::-webkit-scrollbar { height: 20px; width: 20px; }
   .timeline-container::-webkit-scrollbar-track { background: #282828; }
   .timeline-container::-webkit-scrollbar-thumb { background-color: #888; border-radius: 20px; border: 4px solid #282828; }
@@ -235,6 +235,12 @@
     visibility: visible;
   }
   
+  /* --- NEW: CSS rule for "Open/Close All" functionality --- */
+  .timeline-item.details-visible .timeline-content {
+    opacity: 1;
+    visibility: visible;
+  }
+
   .timeline-item .timeline-content {
       bottom: 30px;
   }
@@ -330,7 +336,9 @@
     -webkit-appearance: none; 
     margin: 0; 
   }
-  .date-range-container button {
+  
+  /* Style for all buttons in the control panel */
+  .zoom-controls-container button {
     padding: 7px 15px;
     font-weight: bold;
     border: none;
@@ -340,7 +348,7 @@
     cursor: pointer;
     transition: background-color 0.2s;
   }
-  .date-range-container button:hover {
+  .zoom-controls-container button:hover {
     background-color: #7c7d7f;
   }
 
@@ -463,6 +471,8 @@
     <input type="number" id="end-year-input">
     <button id="go-to-range">Go</button>
   </div>
+  <!-- NEW: Open/Close All Button -->
+  <button id="toggle-all-details">Open All</button>
 </div>
 
 <!-- Load Data Scripts -->
@@ -484,6 +494,7 @@
     const startYearInput = document.getElementById('start-year-input');
     const endYearInput = document.getElementById('end-year-input');
     const goToRangeBtn = document.getElementById('go-to-range');
+    const toggleAllDetailsBtn = document.getElementById('toggle-all-details'); // NEW: Get the button
     const baseWidth = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--timeline-base-width'));
     
     const masterStartYear = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--start-year'));
@@ -491,9 +502,8 @@
     const masterTotalYears = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--total-years'));
 
     // --- MAP POPUP LOGIC ---
-    let isMapLocked = false; // NEW: State variable to track if the map is locked
+    let isMapLocked = false; 
 
-    // 1. Create all map elements once and add them to the page
     const mapContainer = document.createElement('div');
     mapContainer.id = 'map-popup-container';
     
@@ -501,17 +511,16 @@
     mapIframe.setAttribute('frameborder', '0');
     mapIframe.setAttribute('allowfullscreen', '');
 
-    const mapCloseBtn = document.createElement('span'); // NEW: Create the close button
+    const mapCloseBtn = document.createElement('span'); 
     mapCloseBtn.id = 'map-close-btn';
-    mapCloseBtn.innerHTML = '&times;'; // The 'X' symbol
+    mapCloseBtn.innerHTML = '&times;'; 
     
-    mapContainer.appendChild(mapCloseBtn); // Add close button to container
+    mapContainer.appendChild(mapCloseBtn); 
     mapContainer.appendChild(mapIframe);
     document.body.appendChild(mapContainer);
     
-    // 2. Event Listeners for Map Interaction
     wrapper.addEventListener('mouseover', (e) => {
-      if (isMapLocked) return; // If map is locked, do nothing on mouseover
+      if (isMapLocked) return;
       
       const target = e.target;
       if (target.classList.contains('timeline-year-label') || target.classList.contains('timeline-year-label-thousand')) {
@@ -533,7 +542,7 @@
     });
 
     wrapper.addEventListener('mouseout', (e) => {
-      if (isMapLocked) return; // If map is locked, do nothing on mouseout
+      if (isMapLocked) return; 
       
       const target = e.target;
       if (target.classList.contains('timeline-year-label') || target.classList.contains('timeline-year-label-thousand')) {
@@ -542,29 +551,24 @@
       }
     });
     
-    // NEW: Click listener on the wrapper to lock the map
     wrapper.addEventListener('click', (e) => {
       const target = e.target;
       if (target.classList.contains('timeline-year-label') || target.classList.contains('timeline-year-label-thousand')) {
         isMapLocked = true;
-        // Make the map container and its content (iframe) interactive
         mapContainer.style.pointerEvents = 'auto'; 
       }
     });
 
-    // NEW: Click listener for the close button
     mapCloseBtn.addEventListener('click', () => {
       isMapLocked = false;
       mapContainer.style.display = 'none';
       mapIframe.src = '';
-      // Make the container non-interactive again for the next mouseover
       mapContainer.style.pointerEvents = 'none'; 
     });
-    // --- END OF MAP POPUP LOGIC ---
 
     // --- HORIZONTAL ZOOM LOGIC ---
     const minZoom = 0.05;
-    const maxZoom = 200.0; 
+    const maxZoom = 5250.0; 
     const logMin = Math.log(minZoom);
     const logMax = Math.log(maxZoom);
 
@@ -644,7 +648,7 @@
       zoomToRange(start, end);
     });
 
-    // --- Mouse Wheel Zoom ---
+    // --- MOUSE WHEEL ZOOM ---
     container.addEventListener('wheel', (e) => {
       e.preventDefault(); 
       const rect = container.getBoundingClientRect();
@@ -653,67 +657,105 @@
       applyZoom(currentZoom * zoomFactor, mouseX);
     }, { passive: false });
 
-    // --- Touch Pinch-to-Zoom ---
+    // --- TOUCH PINCH-TO-ZOOM ---
     let initialPinchDistance = 0;
     let lastZoom = 1;
     
     const getDistance = (touches) => Math.hypot(touches[0].pageX - touches[1].pageX, touches[0].pageY - touches[1].pageY);
 
+    // This listener is now combined with the pan logic's touchstart
+    
+    // --- PAN AND TOUCH-SCROLL LOGIC ---
+    let isDown = false;
+    let startX, startY;
+    let scrollLeftStart, scrollTopStart;
+
+    const startPan = (e) => {
+      isDown = true;
+      container.style.cursor = 'grabbing';
+      const pageX = e.touches ? e.touches[0].pageX : e.pageX;
+      const pageY = e.touches ? e.touches[0].pageY : e.pageY;
+      startX = pageX - container.offsetLeft;
+      scrollLeftStart = container.scrollLeft;
+      startY = pageY - container.offsetTop;
+      scrollTopStart = container.scrollTop;
+    };
+
+    const endPan = () => {
+      isDown = false;
+      container.style.cursor = 'grab';
+    };
+
+    const movePan = (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const pageX = e.touches ? e.touches[0].pageX : e.pageX;
+      const pageY = e.touches ? e.touches[0].pageY : e.pageY;
+      const x = pageX - container.offsetLeft;
+      const walkX = (x - startX) * 2; // The '2' is a pan speed multiplier
+      container.scrollLeft = scrollLeftStart - walkX;
+      const y = pageY - container.offsetTop;
+      const walkY = (y - startY) * 2;
+      container.scrollTop = scrollTopStart - walkY;
+    };
+
+    // MOUSE EVENTS
+    container.addEventListener('mousedown', (e) => {
+        if(e.button !== 0) return;
+        startPan(e);
+    });
+    container.addEventListener('mouseleave', endPan);
+    container.addEventListener('mouseup', endPan);
+    container.addEventListener('mousemove', movePan);
+
+    // TOUCH EVENTS (PAN & PINCH-ZOOM)
     container.addEventListener('touchstart', (e) => {
-      if (e.touches.length === 2) {
+      if (e.touches.length === 1) {
+        startPan(e);
+      } else if (e.touches.length === 2) {
         e.preventDefault();
         initialPinchDistance = getDistance(e.touches);
         lastZoom = currentZoom;
       }
     }, { passive: false });
 
+    container.addEventListener('touchend', () => {
+        endPan();
+        initialPinchDistance = 0; // Reset pinch distance
+    });
+
     container.addEventListener('touchmove', (e) => {
-      if (e.touches.length === 2) {
+      if (e.touches.length === 1 && isDown) {
+        movePan(e);
+      } else if (e.touches.length === 2) {
         e.preventDefault();
         const rect = container.getBoundingClientRect();
         const pivotX = ((e.touches[0].clientX + e.touches[1].clientX) / 2) - rect.left;
         const newPinchDistance = getDistance(e.touches);
+        if (initialPinchDistance === 0) return;
         const zoomRatio = newPinchDistance / initialPinchDistance;
         applyZoom(lastZoom * zoomRatio, pivotX);
       }
     }, { passive: false });
     
-    // --- PAN LOGIC ---
-    let isDown = false;
-    let startX, startY;
-    let scrollLeftStart, scrollTopStart;
+    // --- NEW: "OPEN/CLOSE ALL" BUTTON LOGIC ---
+    let areDetailsOpen = false;
+    toggleAllDetailsBtn.addEventListener('click', () => {
+      areDetailsOpen = !areDetailsOpen; // Flip the state
+      const allItems = wrapper.querySelectorAll('.timeline-item');
+      
+      allItems.forEach(item => {
+        if (areDetailsOpen) {
+          item.classList.add('details-visible');
+        } else {
+          item.classList.remove('details-visible');
+        }
+      });
 
-    container.addEventListener('mousedown', (e) => {
-      if(e.button !== 0) return;
-      isDown = true;
-      container.style.cursor = 'grabbing';
-      startX = e.pageX - container.offsetLeft;
-      scrollLeftStart = container.scrollLeft;
-      startY = e.pageY - container.offsetTop;
-      scrollTopStart = container.scrollTop;
-    });
-
-    container.addEventListener('mouseleave', () => { 
-        isDown = false; 
-        container.style.cursor = 'grab'; 
+      toggleAllDetailsBtn.textContent = areDetailsOpen ? 'Close All' : 'Open All';
     });
 
-    container.addEventListener('mouseup', () => { 
-        isDown = false; 
-        container.style.cursor = 'grab'; 
-    });
-    
-    container.addEventListener('mousemove', (e) => {
-      if (!isDown) return;
-      e.preventDefault();
-      const x = e.pageX - container.offsetLeft;
-      const walkX = (x - startX) * 2;
-      container.scrollLeft = scrollLeftStart - walkX;
-      const y = e.pageY - container.offsetTop;
-      const walkY = (y - startY) * 2;
-      container.scrollTop = scrollTopStart - walkY;
-    });
-    
+
     // --- INITIALIZATION ---
     applyZoom(1.0, container.clientWidth / 2);
     container.scrollLeft = wrapper.offsetWidth;
