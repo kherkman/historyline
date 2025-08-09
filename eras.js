@@ -359,6 +359,24 @@ document.addEventListener('DOMContentLoaded', function() {
             wiki: "https://en.wikipedia.org/wiki/History_of_electricity",
             start: -600,
             end: -599
+        },
+        {
+            name: "Golden Age of Piracy",
+            dates: "c. 1650-1730 AD",
+            description: "A period of heightened piracy, when thousands of ships in the Atlantic and beyond became the prey of roving bands of sea-robbers. Many of the most infamous pirates from history come from this era, including Blackbeard.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/0/03/Howard_Pyle-Blackbeard_the_Pirate.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Golden_Age_of_Piracy",
+            start: 1650,
+            end: 1730
+        },
+        {
+            name: "California Gold Rush",
+            dates: "1848–1855 AD",
+            description: "Began on January 24, 1848, when gold was found by James W. Marshall at Sutter's Mill in Coloma, California. The news of gold brought approximately 300,000 people to California from the rest of the United States and abroad.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/California_gold_rush%281%29.jpg/640px-California_gold_rush%281%29.jpg",
+            wiki: "https://en.wikipedia.org/wiki/California_Gold_Rush",
+            start: 1848,
+            end: 1855
         }
     ];
 
