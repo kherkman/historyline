@@ -45,6 +45,35 @@ document.addEventListener('DOMContentLoaded', function() {
             wiki: "https://en.wikipedia.org/wiki/Leo_Tolstoy",
             start: 1828,
             end: 1910
+        },
+        {
+            name: "Grimm Brothers",
+            displayName: "Brothers Grimm",
+            dates: "Jacob (1785–1863), Wilhelm (1786–1859)",
+            description: "German academics, philologists, cultural researchers, lexicographers and authors who together collected and published folklore during the 19th century.",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Grimm.jpg/220px-Grimm.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Brothers_Grimm",
+            start: 1785,
+            end: 1863
+        },
+        {
+            name: "Lewis Carroll",
+            displayName: "Charles Lutwidge Dodgson",
+            dates: "1832–1898",
+            description: "An English writer, mathematician, logician, Anglican deacon, and photographer, best known for his fantasy works, 'Alice's Adventures in Wonderland' and its sequel 'Through the Looking-Glass'. [2, 8]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Lewis_Carroll_by_Oscar_Gustave_Rejlander%2C_1863.jpg/220px-Lewis_Carroll_by_Oscar_Gustave_Rejlander%2C_1863.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Lewis_Carroll",
+            start: 1832,
+            end: 1898
+        },
+        {
+            name: "Stephen King",
+            dates: "born 1947",
+            description: "An American author of horror, supernatural fiction, suspense, crime, science-fiction, and fantasy novels. [4]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Stephen_King%2C_Comicon_2011.jpg/220px-Stephen_King%2C_Comicon_2011.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Stephen_King",
+            start: 1947,
+            end: 2025
         }
     ];
 
