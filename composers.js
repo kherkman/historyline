@@ -62,6 +62,17 @@ document.addEventListener('DOMContentLoaded', function() {
             end: 1521
         },
         {
+            name: "F. da Milano",
+            displayName: "Francesco Canova da Milano",
+            dates: "1497-1543",
+            description: "Francesco Canova da Milano was an Italian lutenist and composer who was heralded throughout Europe as the foremost lute composer of his time. [2, 3]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Portrait_of_a_Musician_by_Giulio_Campi_c.1530.jpg/220px-Portrait_of_a_Musician_by_Giulio_Campi_c.1530.jpg",
+            spotify: "https://open.spotify.com/artist/299m02aT645n9w1iKzu77G",
+            wiki: "https://en.wikipedia.org/wiki/Francesco_Canova_da_Milano",
+            start: 1497,
+            end: 1543
+        },
+        {
             name: "Monteverdi",
             dates: "1567-1643",
             description: "Claudio Giovanni Antonio Monteverdi was an Italian composer, choirmaster and string player.",
