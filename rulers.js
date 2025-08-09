@@ -739,6 +739,247 @@ document.addEventListener('DOMContentLoaded', function() {
             wiki: "https://en.wikipedia.org/wiki/Pol_Pot",
             start: 1975,
             end: 1979
+        },
+        {
+            name: "Pope Innocent III",
+            dates: "r. 1198–1216",
+            description: "One of the most powerful and influential popes, he exerted significant influence over European kings. [1] He initiated the Fourth Crusade and the Albigensian Crusade, and in 1215, he convened the Fourth Lateran Council, which issued important reforms for the church. [1, 6]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Innocent_III_SS_Speco.jpg/220px-Innocent_III_SS_Speco.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Pope_Innocent_III",
+            start: 1198,
+            end: 1216
+        },
+        {
+            name: "Leopold II of Belgium",
+            dates: "r. 1865–1909",
+            description: "The second King of the Belgians, he founded and was the sole owner of the Congo Free State, a private project undertaken on his own behalf. He was responsible for the widespread atrocities and deaths of millions of Congolese people. [1]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Leopold_ii_garter_knight.jpg/220px-Leopold_ii_garter_knight.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Leopold_II_of_Belgium",
+            start: 1865,
+            end: 1909
+        },
+        {
+            name: "Gustavus Adolphus",
+            dates: "r. 1611–1632",
+            description: "King of Sweden from 1611 to 1632, he is credited for the rise of Sweden as a great European power. [3, 5] During the Thirty Years' War, he led his nation to military supremacy, and was a great military commander. [2, 5] He is often regarded as one of the greatest military commanders in modern history. [3]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Gustav_II_Adolf_of_Sweden_by_Jacob_Hoefnagel.jpg/220px-Gustav_II_Adolf_of_Sweden_by_Jacob_Hoefnagel.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Gustavus_Adolphus_of_Sweden",
+            start: 1611,
+            end: 1632
+        },
+        {
+            name: "Frederick VI of Denmark",
+            dates: "r. 1808–1839",
+            description: "King of Denmark from 1808 to 1839 and of Norway from 1808 to 1814. [2, 4] He was regent of Denmark from 1784 and supported Napoleon during the Napoleonic Wars. [2, 4] After Napoleon's defeat, he was forced to cede Norway to Sweden. [4, 5]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Frederik_VI_of_Denmark_by_C.A._Jensen.jpg/220px-Frederik_VI_of_Denmark_by_C.A._Jensen.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Frederick_VI_of_Denmark",
+            start: 1808,
+            end: 1839
+        },
+        {
+            name: "Gustav III of Sweden",
+            dates: "r. 1771–1792",
+            description: "King of Sweden from 1771 until his assassination in 1792. [1, 2, 3] He was a patron of the arts and a supporter of the Enlightenment, founding the Swedish Academy. [3] In 1772, he seized power from the government in a coup d'état. [1, 5]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Gustav_III_of_Sweden_by_Alexander_Roslin.jpg/220px-Gustav_III_of_Sweden_by_Alexander_Roslin.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Gustav_III_of_Sweden",
+            start: 1771,
+            end: 1792
+        },
+        {
+            name: "Joseph II, Holy Roman Emperor",
+            displayName: "Joseph II",
+            dates: "r. 1765–1790",
+            description: "Holy Roman Emperor and ruler of the Habsburg lands from 1780 to 1790. He was an 'enlightened despot' who issued decrees that abolished serfdom and promoted religious toleration. [3, 4, 1]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Joseph_II_by_Joseph_Hickel.jpg/220px-Joseph_II_by_Joseph_Hickel.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Joseph_II,_Holy_Roman_Emperor",
+            start: 1765,
+            end: 1790
+        },
+        {
+            name: "Joseph I of Portugal",
+            dates: "r. 1750–1777",
+            description: "King of Portugal from 1750 until his death in 1777. His reign was marked by the 1755 Lisbon earthquake and the subsequent rebuilding of the city under the direction of his chief minister, the Marquis of Pombal. [1]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/D._Jos%C3%A9_I_de_Portugal.jpg/220px-D._Jos%C3%A9_I_de_Portugal.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Joseph_I_of_Portugal",
+            start: 1750,
+            end: 1777
+        },
+        {
+            name: "Maria Theresa",
+            dates: "r. 1740–1780",
+            description: "The only female ruler of the Habsburg dominions, she was the sovereign of Austria, Hungary, Croatia, Bohemia, and other territories. [1, 4] She was the mother of sixteen children, including Joseph II and Marie Antoinette. [1]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Maria_Theresia_als_K%C3%B6nigin_von_Ungarn.jpg/220px-Maria_Theresia_als_K%C3%B6nigin_von_Ungarn.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Maria_Theresa",
+            start: 1740,
+            end: 1780
+        },
+        {
+            name: "Alexander II of Russia",
+            displayName: "Alexander II",
+            dates: "r. 1855–1881",
+            description: "Known as the 'Liberator' for his 1861 emancipation of Russia's serfs. [1] His reign also included major reforms in the judicial system, military, and local government. [1, 4] Despite these liberal reforms, he was assassinated by the revolutionary group Narodnaya Volya ('People's Will') in 1881. [2, 3]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Alexander_II_of_Russia_by_T._Nebe.jpg/220px-Alexander_II_of_Russia_by_T._Nebe.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Alexander_II_of_Russia",
+            start: 1855,
+            end: 1881
+        },
+        {
+            name: "George Washington",
+            dates: "President 1789–1797",
+            description: "The first president of the United States, Washington played a key role in shaping the office and the new nation. He established many presidential precedents, including the cabinet system, and oversaw the creation of the first national bank. [2, 4] He was unanimously elected twice. [1, 4]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Gilbert_Stuart_Williamstown_Portrait_of_George_Washington.jpg/220px-Gilbert_Stuart_Williamstown_Portrait_of_George_Washington.jpg",
+            wiki: "https://en.wikipedia.org/wiki/George_Washington",
+            start: 1789,
+            end: 1797
+        },
+        {
+            name: "Abraham Lincoln",
+            dates: "President 1861–1865",
+            description: "The 16th president of the United States, Lincoln led the country through the Civil War, preserving the Union and abolishing slavery. [4] He issued the Emancipation Proclamation in 1863 and was instrumental in the passage of the Thirteenth Amendment. [3, 5] He was assassinated in 1865. [2, 4]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Abraham_Lincoln_O-77_matte_collodion_print.jpg/220px-Abraham_Lincoln_O-77_matte_collodion_print.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Abraham_Lincoln",
+            start: 1861,
+            end: 1865
+        },
+        {
+            name: "Franklin D. Roosevelt",
+            displayName: "FDR",
+            dates: "President 1933–1945",
+            description: "The 32nd president of the United States, he led the country through the Great Depression and World War II. [1, 2] He implemented the New Deal to combat the economic crisis and was the only president to serve more than two terms. [1, 3, 4]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/FDR_1944_Color_Portrait.jpg/220px-FDR_1944_Color_Portrait.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Franklin_D._Roosevelt",
+            start: 1933,
+            end: 1945
+        },
+        {
+            name: "Theodore Roosevelt",
+            displayName: "Teddy Roosevelt",
+            dates: "President 1901–1909",
+            description: "The 26th president of the United States, known for his progressive reforms and 'trust-busting' of large corporate monopolies. [3, 4] A noted conservationist, he greatly expanded the national parks system. [1, 4] He also oversaw the beginning of construction on the Panama Canal. [4]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/President_Theodore_Roosevelt%2C_1904.jpg/220px-President_Theodore_Roosevelt%2C_1904.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Theodore_Roosevelt",
+            start: 1901,
+            end: 1909
+        },
+        {
+            name: "Thomas Jefferson",
+            dates: "President 1801–1809",
+            description: "The third president of the United States, he was the principal author of the Declaration of Independence. [1] His presidency is most known for the Louisiana Purchase, which doubled the size of the country. [3, 4] He also authorized the Lewis and Clark Expedition. [3, 5]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Rembrandt_Peale_-_Thomas_Jefferson_-_Google_Art_Project.jpg/220px-Rembrandt_Peale_-_Thomas_Jefferson_-_Google_Art_Project.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Thomas_Jefferson",
+            start: 1801,
+            end: 1809
+        },
+        {
+            name: "John F. Kennedy",
+            displayName: "JFK",
+            dates: "President 1961–1963",
+            description: "The 35th president of the United States, he navigated the Cuban Missile Crisis, established the Peace Corps, and championed the space race. [2] He was assassinated in November 1963. [2]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/John_F._Kennedy%2C_White_House_color_photo_portrait.jpg/220px-John_F._Kennedy%2C_White_House_color_photo_portrait.jpg",
+            wiki: "https://en.wikipedia.org/wiki/John_F._Kennedy",
+            start: 1961,
+            end: 1963
+        },
+        {
+            name: "Lyndon B. Johnson",
+            displayName: "LBJ",
+            dates: "President 1963–1969",
+            description: "The 36th president, he took office after Kennedy's assassination. [4] He is known for his 'Great Society' legislation, which included the Civil Rights Act of 1964, Medicare, and Medicaid. [4]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Lyndon_B._Johnson_in_1964.jpg/220px-Lyndon_B._Johnson_in_1964.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Lyndon_B._Johnson",
+            start: 1963,
+            end: 1969
+        },
+        {
+            name: "Ronald Reagan",
+            dates: "President 1981–1989",
+            description: "The 40th president, his 'Reaganomics' policies, and a conservative resurgence, marked his time in office. [2] He played a pivotal role in the end of the Cold War. [2]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Official_Portrait_of_President_Reagan_1981.jpg/220px-Official_Portrait_of_President_Reagan_1981.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Ronald_Reagan",
+            start: 1981,
+            end: 1989
+        },
+        {
+            name: "Dwight D. Eisenhower",
+            displayName: "Ike",
+            dates: "President 1953–1961",
+            description: "A five-star general in the United States Army and Supreme Commander of the Allied Expeditionary Forces in Europe during WWII, he served as the 34th President. He ended the Korean War and launched the Interstate Highway System. [2]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Dwight_D._Eisenhower%2C_official_photo_portrait%2C_May_29%2C_1959.jpg/220px-Dwight_D._Eisenhower%2C_official_photo_portrait%2C_May_29%2C_1959.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Dwight_D._Eisenhower",
+            start: 1953,
+            end: 1961
+        },
+        {
+            name: "Woodrow Wilson",
+            dates: "President 1913–1921",
+            description: "The 28th president, he led the United States through World War I. [1] A key advocate for the League of Nations, he also oversaw major progressive reforms, including the establishment of the Federal Reserve. [1]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/President_Woodrow_Wilson_portrait_December_2_1912.jpg/220px-President_Woodrow_Wilson_portrait_December_2_1912.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Woodrow_Wilson",
+            start: 1913,
+            end: 1921
+        },
+        {
+            name: "Harry S. Truman",
+            dates: "President 1945–1953",
+            description: "The 33rd president, he assumed office after the death of Franklin D. Roosevelt. He made the decision to use atomic weapons against Japan to end World War II and implemented the Marshall Plan to rebuild postwar Europe. [3]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Harry_S._Truman%2C_bw_half-length_photo_portrait%2C_facing_front%2C_1945.jpg/220px-Harry_S._Truman%2C_bw_half-length_photo_portrait%2C_facing_front%2C_1945.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Harry_S._Truman",
+            start: 1945,
+            end: 1953
+        },
+        {
+            name: "Kaarlo Juho Ståhlberg",
+            dates: "President 1919–1925",
+            description: "The first president of Finland, he played a critical role in the creation of the country's constitution. [5] He was elected by the parliament and appointed eight different governments during his six-year term, navigating the country through its early, turbulent years. [5]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Kaarlo_Juho_St%C3%A5hlberg_in_1919.jpg/220px-Kaarlo_Juho_St%C3%A5hlberg_in_1919.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Kaarlo_Juho_St%C3%A5hlberg",
+            start: 1919,
+            end: 1925
+        },
+        {
+            name: "Carl Gustaf Mannerheim",
+            dates: "President 1944–1946",
+            description: "A military leader and statesman, he was the commander-in-chief of the Finnish Defence Forces during World War II. [2] He was made president by a special act of parliament to manage the end of the war and the peace negotiations with the Soviet Union. [3]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/C.G.E._Mannerheim_in_1940.jpg/220px-C.G.E._Mannerheim_in_1940.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Carl_Gustaf_Emil_Mannerheim",
+            start: 1944,
+            end: 1946
+        },
+        {
+            name: "Urho Kekkonen",
+            dates: "President 1956–1982",
+            description: "Serving for 26 years, he was the longest-serving president of Finland. [6] His foreign policy, known as the 'Paasikivi-Kekkonen line', aimed to maintain Finland's independence and neutrality while fostering good relations with the Soviet Union. [3]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Urho_Kekkonen_1966.jpg/220px-Urho_Kekkonen_1966.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Urho_Kekkonen",
+            start: 1956,
+            end: 1982
+        },
+        {
+            name: "Mauno Koivisto",
+            dates: "President 1982–1994",
+            description: "The ninth president of Finland, he shifted the country's foreign policy towards greater openness with the West. [6] He led Finland into a period of economic growth in the 1980s and managed the country through the dissolution of the Soviet Union. [6]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Mauno_Koivisto_1982.jpg/220px-Mauno_Koivisto_1982.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Mauno_Koivisto",
+            start: 1982,
+            end: 1994
+        },
+        {
+            name: "Martti Ahtisaari",
+            dates: "President 1994–2000",
+            description: "The tenth president of Finland, he was the first to be elected by direct popular vote. [5] During his term, Finland joined the European Union. [5] He later received the Nobel Peace Prize in 2008 for his work in resolving international conflicts. ",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Martti_Ahtisaari_2008.jpg/220px-Martti_Ahtisaari_2008.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Martti_Ahtisaari",
+            start: 1994,
+            end: 2000
+        },
+        {
+            name: "Tarja Halonen",
+            dates: "President 2000–2012",
+            description: "The eleventh and first female president of Finland, she served for two terms. [5] She was known for her interest in human rights and her high approval ratings. [5]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Tarja_Halonen_2011.jpg/220px-Tarja_Halonen_2011.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Tarja_Halonen",
+            start: 2000,
+            end: 2012
         }
     ];
 
