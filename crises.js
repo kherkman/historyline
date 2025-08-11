@@ -654,6 +654,95 @@ document.addEventListener('DOMContentLoaded', function() {
             wiki: "https://en.wikipedia.org/wiki/Russian_Civil_War",
             start: 1917,
             end: 1922
+        },
+        {
+            name: "Xinhai Revolution",
+            description: "The revolution that overthrew China's last imperial dynasty, the Qing dynasty, and led to the establishment of the Republic of China.",
+            dates: "1911–1912",
+            wiki: "https://en.wikipedia.org/wiki/Xinhai_Revolution",
+            start: 1911,
+            end: 1912
+        },
+        {
+            name: "Franco-Prussian War",
+            description: "A conflict between the Second French Empire and the North German Confederation led by the Kingdom of Prussia. The decisive German victory brought about the final unification of Germany and the fall of the French Empire.",
+            dates: "1870–1871",
+            wiki: "https://en.wikipedia.org/wiki/Franco-Prussian_War",
+            start: 1870,
+            end: 1871
+        },
+        {
+            name: "Crimean War",
+            description: "A military conflict fought from October 1853 to February 1856 in which Russia lost to an alliance of the Ottoman Empire, France, Britain and Sardinia.",
+            dates: "1853–1856",
+            wiki: "https://en.wikipedia.org/wiki/Crimean_War",
+            start: 1853,
+            end: 1856
+        },
+        {
+            name: "Russo-Turkish War (1828–1829)",
+            description: "Sparked by the Greek War of Independence, this war resulted in a Russian victory and the signing of the Treaty of Adrianople, which gave Russia new territory on the Black Sea coast.",
+            dates: "1828–1829",
+            wiki: "https://en.wikipedia.org/wiki/Russo-Turkish_War_(1828%E2%80%931829)",
+            start: 1828,
+            end: 1829
+        },
+        {
+            name: "Russo-Turkish War (1877–1878)",
+            description: "A conflict between the Ottoman Empire and a coalition led by the Russian Empire, which resulted in the independence of Romania, Serbia and Montenegro from Ottoman rule.",
+            dates: "1877–1878",
+            wiki: "https://en.wikipedia.org/wiki/Russo-Turkish_War_(1877%E2%80%931878)",
+            start: 1877,
+            end: 1878
+        },
+        {
+            name: "Swedish War of Liberation",
+            description: "A rebellion and civil war in which the Swedish nobleman Gustav Vasa successfully deposed King Christian II, ending the Kalmar Union and leading to Sweden's independence. [7, 17, 18]",
+            dates: "1521–1523",
+            wiki: "https://en.wikipedia.org/wiki/Swedish_War_of_Liberation",
+            start: 1521,
+            end: 1523
+        },
+        {
+            name: "Great Northern War",
+            description: "A conflict in which a coalition led by the Tsardom of Russia successfully contested the supremacy of the Swedish Empire in Northern, Central and Eastern Europe. [5, 8, 11]",
+            dates: "1700–1721",
+            wiki: "https://en.wikipedia.org/wiki/Great_Northern_War",
+            start: 1700,
+            end: 1721
+        },
+        {
+            name: "Franco-Swedish War",
+            description: "Sweden's first involvement in the Napoleonic Wars, joining the Third Coalition in an effort to defeat France under Napoleon Bonaparte. [6]",
+            dates: "1805–1810",
+            wiki: "https://en.wikipedia.org/wiki/Franco-Swedish_War",
+            start: 1805,
+            end: 1810
+        },
+        {
+            name: "Finnish War",
+            description: "A conflict fought between the Kingdom of Sweden and the Russian Empire, as a part of the Napoleonic Wars, which resulted in the eastern third of Sweden being established as the autonomous Grand Duchy of Finland within the Russian Empire. [13, 16]",
+            dates: "1808–1809",
+            wiki: "https://en.wikipedia.org/wiki/Finnish_War",
+            start: 1808,
+            end: 1809
+        },
+        {
+            name: "Swedish–Norwegian War",
+            description: "A war fought between Sweden and Norway in the summer of 1814, resulting in Norway entering into a personal union with Sweden. [13, 23]",
+            dates: "1814",
+            wiki: "https://en.wikipedia.org/wiki/Swedish%E2%80%93Norwegian_War_(1814)",
+            start: 1814,
+            end: 1815
+        },
+        {
+            name: "Wall Street Crash of 1929",
+            dates: "1929 AD",
+            description: "A major American stock market crash that occurred in the autumn of 1929. [1] It started in September and ended late in October, when share prices on the New York Stock Exchange collapsed. [5] The crash signaled the beginning of the 10-year Great Depression that affected all Western industrialized countries. [1]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Crowd_gathering_on_Wall_Street_after_the_1929_crash.jpg/220px-Crowd_gathering_on_Wall_Street_after_the_1929_crash.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Wall_Street_crash_of_1929",
+            start: 1929,
+            end: 1930
         }
 
     ];
