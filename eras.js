@@ -377,6 +377,24 @@ document.addEventListener('DOMContentLoaded', function() {
             wiki: "https://en.wikipedia.org/wiki/California_Gold_Rush",
             start: 1848,
             end: 1855
+        },
+                {
+            name: "Belle Époque",
+            dates: "c. 1871–1914 AD",
+            description: "A period in Western history, particularly in France, characterized by optimism, peace, and economic prosperity, along with technological, scientific, and cultural innovations. [1, 5] This era of artistic flourishing ended with the beginning of World War I. [1, 14]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Jules_Ch%C3%A9ret_-_Th%C3%A9%C3%A2tre_de_l%27Op%C3%A9ra_-_Carnaval_1894.jpg/220px-Jules_Ch%C3%A9ret_-_Th%C3%A9%C3%A2tre_de_l%27Op%C3%A9ra_-_Carnaval_1894.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Belle_%C3%89poque",
+            start: 1871,
+            end: 1914
+        },
+        {
+            name: "Roaring Twenties",
+            dates: "1920–1929 AD",
+            description: "A decade of significant economic growth, and widespread prosperity in the Western world. [3, 4] Known for its distinctive cultural edge, it is often called the Jazz Age, and was a time of social and artistic dynamism. [3, 8]",
+            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Federal_agents_with_a_confiscated_still_during_Prohibition.jpg/220px-Federal_agents_with_a_confiscated_still_during_Prohibition.jpg",
+            wiki: "https://en.wikipedia.org/wiki/Roaring_Twenties",
+            start: 1920,
+            end: 1929
         }
     ];
 
