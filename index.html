@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Definitive Interactive Historical Timelines</title>
+<title>Interactive Historical Timelines</title>
 <style>
   :root {
     --start-year: -115000; /* Start year for the timeline */
@@ -41,7 +41,6 @@
     align-items: center;
     min-height: 100vh;
     overflow: hidden;
-    /* MODIFIED: Changed touch-action to 'none' to allow manual handling of panning */
     touch-action: none;
   }
 
@@ -57,7 +56,6 @@
       cursor: grabbing;
   }
 
-  /* --- MODIFIED: Increased Scrollbar Size --- */
   .timeline-container::-webkit-scrollbar { height: 20px; width: 20px; }
   .timeline-container::-webkit-scrollbar-track { background: #282828; }
   .timeline-container::-webkit-scrollbar-thumb { background-color: #888; border-radius: 20px; border: 4px solid #282828; }
@@ -96,14 +94,13 @@
     align-items: center;
   }
 
-  /* --- MODIFIED The Vertical Year Line --- */
   .timeline-year::before {
     content: '';
     width: 2px;
-    height: 300%; /* Make the line much taller than the viewport */
+    height: 300%; 
     background-color: rgba(85, 85, 85, 0.5);
     position: absolute;
-    top: -100%; /* Reposition it to start above the viewport */
+    top: -100%; 
     left: 50%;
     z-index: -1;
   }
@@ -117,7 +114,7 @@
     background-color: #121212;
     padding: 0 10px;
     z-index: 15;
-    cursor: pointer; /* Add cursor to indicate it's interactive */
+    cursor: pointer; 
   }
 
   .timeline-year-label {
@@ -128,8 +125,20 @@
     color: #555;
     background-color: #121212;
     padding: 0 10px;
-    z-index: 15; /* Year labels are high, but below the hovered item */
-    cursor: pointer; /* Add cursor to indicate it's interactive */
+    z-index: 15; 
+    cursor: pointer;
+  }
+  
+  .timeline-year-label-fifty {
+    position: sticky;
+    top: 10%;
+    font-size: 1.1em;
+    font-weight: normal;
+    color: #444; /* Dimmer color */
+    background-color: #121212;
+    padding: 0 8px;
+    z-index: 14; /* Below century labels */
+    cursor: pointer;
   }
 
   .timeline-item {
@@ -137,16 +146,14 @@
     height: 0;
     display: flex;
     align-items: center;
-    z-index: 10; /* Default z-index for items */
-    transition: transform 0.1s ease-out; /* Smooth transition for offset changes */
+    z-index: 10;
+    transition: transform 0.1s ease-out;
   }
 
-  /* On hover, bring the item to the front */
   .timeline-item:hover {
     z-index: 16;
   }
 
-  /* Position items on their respective timelines using CSS Variables */
   .timeline-item.eras        { top: var(--eras-top); }
   .timeline-item.composers   { top: var(--composers-top); }
   .timeline-item.scientists  { top: var(--scientists-top); }
@@ -235,7 +242,6 @@
     visibility: visible;
   }
   
-  /* --- NEW: CSS rule for "Open/Close All" functionality --- */
   .timeline-item.details-visible .timeline-content {
     opacity: 1;
     visibility: visible;
@@ -277,7 +283,6 @@
   .timeline-content p { margin: 5px 0; font-size: 0.9em; color: #ccc; }
   .timeline-content .dates { margin-top: 0; color: #aaa; font-style: italic; }
   
-  /* --- Zoom Controls --- */
   .zoom-controls-container {
     position: fixed;
     top: 20px;
@@ -310,8 +315,8 @@
   
   #vertical-zoom-slider {
     -webkit-appearance: none;
-    width: 120px; /* This is the length of the slider */
-    transform-origin: 75px 35px; /* Center rotation */
+    width: 120px;
+    transform-origin: 75px 35px;
     transform: rotate(-90deg);
   }
 
@@ -329,7 +334,7 @@
     border-radius: 5px;
     font-family: inherit;
     text-align: center;
-    -moz-appearance: textfield; /* Firefox */
+    -moz-appearance: textfield;
   }
   .date-range-container input[type=number]::-webkit-inner-spin-button, 
   .date-range-container input[type=number]::-webkit-outer-spin-button { 
@@ -337,7 +342,6 @@
     margin: 0; 
   }
   
-  /* Style for all buttons in the control panel */
   .zoom-controls-container button {
     padding: 7px 15px;
     font-weight: bold;
@@ -392,20 +396,38 @@
     background: #ccc;
     cursor: pointer;
   }
+  
+  #zoom-tooltip {
+    display: none;
+    position: fixed;
+    background-color: rgba(18, 18, 18, 0.9);
+    color: #fff;
+    border: 1px solid #666;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 0.9em;
+    z-index: 1001;
+    pointer-events: none;
+    white-space: nowrap;
+  }
 
-  /* --- Map Popup Styles --- */
+  /* MODIFIED: Added CSS for centering the map popup */
   #map-popup-container {
-    display: none; /* Hidden by default */
-    position: fixed; /* Position relative to the viewport */
-    width: 600px;  /* Changed from 400px */
-    height: 450px; /* Changed from 300px */
+    display: none;
+    position: fixed;
+    width: 600px;
+    height: 450px;
     border: 2px solid #888;
     border-radius: 10px;
     box-shadow: 0 8px 16px rgba(0,0,0,0.7);
     background-color: #121212;
-    z-index: 2000; /* Ensure it's on top of everything */
-    pointer-events: none; /* IMPORTANT: By default, events pass through the container */
-    overflow: hidden; /* Ensures the iframe corners are rounded */
+    z-index: 2000;
+    pointer-events: none;
+    overflow: hidden;
+    /* --- NEW: Centering Rules --- */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 
   #map-popup-container iframe {
@@ -414,7 +436,6 @@
     border: none;
   }
 
-  /* --- NEW: Map Close Button Styles --- */
   #map-close-btn {
       position: absolute;
       top: 5px;
@@ -423,8 +444,8 @@
       font-weight: bold;
       color: #aaa;
       cursor: pointer;
-      z-index: 2001; /* Must be on top of the iframe */
-      pointer-events: auto; /* IMPORTANT: The button is always clickable */
+      z-index: 2001;
+      pointer-events: auto;
       transition: color 0.2s;
   }
   #map-close-btn:hover {
@@ -471,9 +492,10 @@
     <input type="number" id="end-year-input">
     <button id="go-to-range">Go</button>
   </div>
-  <!-- NEW: Open/Close All Button -->
   <button id="toggle-all-details">Open All</button>
 </div>
+
+<div id="zoom-tooltip"></div>
 
 <!-- Load Data Scripts -->
 <script src="eras.js"></script>
@@ -494,12 +516,14 @@
     const startYearInput = document.getElementById('start-year-input');
     const endYearInput = document.getElementById('end-year-input');
     const goToRangeBtn = document.getElementById('go-to-range');
-    const toggleAllDetailsBtn = document.getElementById('toggle-all-details'); // NEW: Get the button
+    const toggleAllDetailsBtn = document.getElementById('toggle-all-details');
     const baseWidth = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--timeline-base-width'));
     
     const masterStartYear = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--start-year'));
     const masterEndYear = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--end-year'));
     const masterTotalYears = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--total-years'));
+    
+    const zoomTooltip = document.getElementById('zoom-tooltip');
 
     // --- MAP POPUP LOGIC ---
     let isMapLocked = false; 
@@ -523,7 +547,7 @@
       if (isMapLocked) return;
       
       const target = e.target;
-      if (target.classList.contains('timeline-year-label') || target.classList.contains('timeline-year-label-thousand')) {
+      if (target.classList.contains('timeline-year-label') || target.classList.contains('timeline-year-label-thousand') || target.classList.contains('timeline-year-label-fifty')) {
         let yearText = target.textContent.trim();
         let formattedYear;
 
@@ -535,8 +559,7 @@
         
         mapIframe.src = `https://www.runningreality.org/#01/01/${formattedYear}&45.20511,14.61222&zoom=4`;
         
-        mapContainer.style.left = (e.clientX + 20) + 'px';
-        mapContainer.style.top = (e.clientY - 150) + 'px';
+        // MODIFIED: Positioning is now handled by CSS, so these lines are removed.
         mapContainer.style.display = 'block';
       }
     });
@@ -545,7 +568,7 @@
       if (isMapLocked) return; 
       
       const target = e.target;
-      if (target.classList.contains('timeline-year-label') || target.classList.contains('timeline-year-label-thousand')) {
+      if (target.classList.contains('timeline-year-label') || target.classList.contains('timeline-year-label-thousand') || target.classList.contains('timeline-year-label-fifty')) {
         mapContainer.style.display = 'none';
         mapIframe.src = ''; 
       }
@@ -553,7 +576,7 @@
     
     wrapper.addEventListener('click', (e) => {
       const target = e.target;
-      if (target.classList.contains('timeline-year-label') || target.classList.contains('timeline-year-label-thousand')) {
+      if (target.classList.contains('timeline-year-label') || target.classList.contains('timeline-year-label-thousand') || target.classList.contains('timeline-year-label-fifty')) {
         isMapLocked = true;
         mapContainer.style.pointerEvents = 'auto'; 
       }
@@ -623,6 +646,28 @@
         const multiplier = e.target.value / 100;
         updateVerticalLayout(multiplier);
     });
+    
+    function attachTooltipEvents(sliderElement) {
+      sliderElement.addEventListener('mouseover', () => {
+        zoomTooltip.style.display = 'block';
+      });
+      sliderElement.addEventListener('mouseout', () => {
+        zoomTooltip.style.display = 'none';
+      });
+      sliderElement.addEventListener('mousemove', (e) => {
+        const min = parseFloat(sliderElement.min);
+        const max = parseFloat(sliderElement.max);
+        const val = parseFloat(sliderElement.value);
+        const percent = Math.round(((val - min) / (max - min)) * 100);
+        
+        zoomTooltip.textContent = `${percent}%`;
+        zoomTooltip.style.left = `${e.clientX + 15}px`;
+        zoomTooltip.style.top = `${e.clientY - 30}px`;
+      });
+    }
+
+    attachTooltipEvents(zoomSlider);
+    attachTooltipEvents(verticalZoomSlider);
 
     // --- ZOOM TO RANGE LOGIC ---
     function zoomToRange(start, end) {
@@ -662,8 +707,6 @@
     let lastZoom = 1;
     
     const getDistance = (touches) => Math.hypot(touches[0].pageX - touches[1].pageX, touches[0].pageY - touches[1].pageY);
-
-    // This listener is now combined with the pan logic's touchstart
     
     // --- PAN AND TOUCH-SCROLL LOGIC ---
     let isDown = false;
@@ -692,7 +735,7 @@
       const pageX = e.touches ? e.touches[0].pageX : e.pageX;
       const pageY = e.touches ? e.touches[0].pageY : e.pageY;
       const x = pageX - container.offsetLeft;
-      const walkX = (x - startX) * 2; // The '2' is a pan speed multiplier
+      const walkX = (x - startX) * 2;
       container.scrollLeft = scrollLeftStart - walkX;
       const y = pageY - container.offsetTop;
       const walkY = (y - startY) * 2;
@@ -708,7 +751,7 @@
     container.addEventListener('mouseup', endPan);
     container.addEventListener('mousemove', movePan);
 
-    // TOUCH EVENTS (PAN & PINCH-ZOOM)
+    // TOUCH EVENTS
     container.addEventListener('touchstart', (e) => {
       if (e.touches.length === 1) {
         startPan(e);
@@ -721,7 +764,7 @@
 
     container.addEventListener('touchend', () => {
         endPan();
-        initialPinchDistance = 0; // Reset pinch distance
+        initialPinchDistance = 0;
     });
 
     container.addEventListener('touchmove', (e) => {
@@ -738,10 +781,10 @@
       }
     }, { passive: false });
     
-    // --- NEW: "OPEN/CLOSE ALL" BUTTON LOGIC ---
+    // --- "OPEN/CLOSE ALL" BUTTON LOGIC ---
     let areDetailsOpen = false;
     toggleAllDetailsBtn.addEventListener('click', () => {
-      areDetailsOpen = !areDetailsOpen; // Flip the state
+      areDetailsOpen = !areDetailsOpen;
       const allItems = wrapper.querySelectorAll('.timeline-item');
       
       allItems.forEach(item => {
@@ -780,6 +823,15 @@
       yearMarker.className = 'timeline-year';
       yearMarker.style.left = `calc((${year} - ${masterStartYear}) / ${masterTotalYears} * 100%)`;
       yearMarker.innerHTML = `<span class="timeline-year-label">${year < 0 ? `${-year} BC` : year}</span>`;
+      wrapper.appendChild(yearMarker);
+    }
+    
+    for (let year = masterStartYear; year <= masterEndYear; year += 50) {
+      if (year % 100 === 0) continue;
+      const yearMarker = document.createElement('div');
+      yearMarker.className = 'timeline-year';
+      yearMarker.style.left = `calc((${year} - ${masterStartYear}) / ${masterTotalYears} * 100%)`;
+      yearMarker.innerHTML = `<span class="timeline-year-label-fifty">${year < 0 ? `${-year} BC` : year}</span>`;
       wrapper.appendChild(yearMarker);
     }
   });
