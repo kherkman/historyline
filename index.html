@@ -297,6 +297,14 @@
     color: #ccc;
     font-size: 0.9em;
   }
+  
+  /* MODIFIED: Added a container for the new global zoom slider */
+  .global-zoom-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 200px; /* Adjust width as needed */
+  }
 
   .horizontal-zoom-container {
     display: flex;
@@ -473,6 +481,12 @@
 </div>
 
 <div class="zoom-controls-container">
+  <!-- MODIFIED: Added Global Zoom Slider -->
+  <div class="global-zoom-container">
+    <span>Zoom Out</span>
+    <input type="range" id="global-zoom-slider" min="50" max="200" value="100">
+    <span>Zoom In</span>
+  </div>
   <!-- Vertical Zoom -->
   <div class="vertical-zoom-container">
     <span>-</span>
@@ -513,6 +527,8 @@
     const wrapper = document.querySelector('.timeline-wrapper');
     const zoomSlider = document.getElementById('zoom-slider');
     const verticalZoomSlider = document.getElementById('vertical-zoom-slider');
+    // MODIFIED: Get the new global zoom slider element
+    const globalZoomSlider = document.getElementById('global-zoom-slider');
     const startYearInput = document.getElementById('start-year-input');
     const endYearInput = document.getElementById('end-year-input');
     const goToRangeBtn = document.getElementById('go-to-range');
@@ -524,6 +540,12 @@
     const masterTotalYears = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--total-years'));
     
     const zoomTooltip = document.getElementById('zoom-tooltip');
+    
+    // --- MODIFIED: GLOBAL ZOOM LOGIC ---
+    globalZoomSlider.addEventListener('input', (e) => {
+        const zoomValue = e.target.value / 100; // Convert 50-200 to 0.5-2.0
+        container.style.zoom = zoomValue;
+    });
 
     // --- MAP POPUP LOGIC ---
     let isMapLocked = false; 
@@ -668,6 +690,9 @@
 
     attachTooltipEvents(zoomSlider);
     attachTooltipEvents(verticalZoomSlider);
+    // MODIFIED: Attach tooltip events to the new global zoom slider
+    attachTooltipEvents(globalZoomSlider);
+
 
     // --- ZOOM TO RANGE LOGIC ---
     function zoomToRange(start, end) {
